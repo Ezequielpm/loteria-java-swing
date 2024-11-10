@@ -16,18 +16,22 @@ public class PartidaObjeto {
     private int puntos;
     private String resultado;
     private String fecha;
+    private int idCategoria;
 
     public PartidaObjeto() {
     }
 
-    public PartidaObjeto(int consecutivo, int idDificultad, int idJugador, int puntos, String resultado, String fecha) {
-        this.idPartida = consecutivo;
+    public PartidaObjeto(int idPartida, int idDificultad, int idJugador, int puntos, String resultado, String fecha, int idCategoria) {
+        this.idPartida = idPartida;
         this.idDificultad = idDificultad;
         this.idJugador = idJugador;
         this.puntos = puntos;
         this.resultado = resultado;
         this.fecha = fecha;
+        this.idCategoria = idCategoria;
     }
+
+    
 
     public int getIdPartida() {
         return idPartida;
@@ -78,6 +82,16 @@ public class PartidaObjeto {
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
+
+    public int getIdCategoria() {
+        return idCategoria;
+    }
+
+    public void setIdCategoria(int idCategoria) {
+        this.idCategoria = idCategoria;
+    }
+    
+    
     
     
 }
