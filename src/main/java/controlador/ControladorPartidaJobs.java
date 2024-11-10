@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.sound.sampled.AudioInputStream;
@@ -24,6 +25,7 @@ import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import modelo.Carta;
 import modelo.Configuracion;
+import modelo.PartidaObjeto;
 import modelo.Sesion;
 import modelo.Tablero;
 import vista.Dificultad;
@@ -56,11 +58,15 @@ public class ControladorPartidaJobs implements ActionListener {
     int contadorAciertosBot = 0;
     int puntosJugador = 0;
     int retrasoDificultad = 0;
-
+    OperacionesDBPartida objOperacionesDBPartida;
+    int tipoDificultad = 0;
+    int idCategoria = 2;
+    int puntosQueGana = 0;
     public ControladorPartidaJobs() {
     }
 
     public ControladorPartidaJobs(PartidaJobs objPartidaJobs, Tablero objTablero, Tablero objTableroBot) {
+        this.objOperacionesDBPartida = new OperacionesDBPartida();
         this.objPartidaJobs = objPartidaJobs;
         this.objPartidaJobs.botonBack.addActionListener(this);
         listaImagenes = new ArrayList<>();
@@ -69,9 +75,9 @@ public class ControladorPartidaJobs implements ActionListener {
         this.objTablero = objTablero;
         this.objTableroBot = objTableroBot;
         obtenerCartas();
+        int tipoDificultad = 0;
 
-       // iniciarTemporizador();
-
+        // iniciarTemporizador();
         idCartas = new ArrayList<>();
         idCartasBot = new ArrayList<>();
 
@@ -111,9 +117,12 @@ public class ControladorPartidaJobs implements ActionListener {
         obtenerIdCartasBot();
         comprobarConfiguracion();
     }
-    
+    public void subirPuntosJugador(){
+        contadorAciertosJugador += puntosQueGana;
+    }
+
     public void comprobarConfiguracion() {
-        System.out.println("USAR ARDUINO: "+Configuracion.isUsarArduino());
+        System.out.println("USAR ARDUINO: " + Configuracion.isUsarArduino());
         if (Configuracion.isUsarArduino()) {
             ArduinoConnector arduino = ArduinoConnector.getInstance();
 
@@ -160,17 +169,23 @@ public class ControladorPartidaJobs implements ActionListener {
 
         if (Configuracion.getDificultad().equals("easy")) {
             retrasoDificultad = 10000;
+            tipoDificultad = 1;
+            puntosQueGana = 15;
             iniciarTemporizador(retrasoDificultad);
 
         } else if (Configuracion.getDificultad().equals("medium")) {
             retrasoDificultad = 7000;
+            puntosQueGana = 30;
+            tipoDificultad = 2;
             iniciarTemporizador(retrasoDificultad);
         } else if (Configuracion.getDificultad().equals("hard")) {
             retrasoDificultad = 4000;
+            puntosQueGana = 50;
+            tipoDificultad = 3;
             iniciarTemporizador(retrasoDificultad);
         }
     }
-    
+
     public void comprobarMatch(JButton... botones) { // PARA EL ARDUINO
 
 //        int boton = Integer.parseInt(ArduinoConnector.getBotonPresionado());
@@ -186,7 +201,7 @@ public class ControladorPartidaJobs implements ActionListener {
                         }
                         if (Integer.parseInt(this.objPartidaJobs.carta1.getName()) == idCartaLanzada) {
                             System.err.println("ESTA ES LA CARTA");
-                            contadorAciertosJugador++;
+                            subirPuntosJugador();
                             idCartasMarcadas.add(idCartaLanzada);
                             ArduinoConnector.setBotonPresionado("99");
                             marcarCartaArduino(this.objPartidaJobs.carta1);
@@ -204,7 +219,7 @@ public class ControladorPartidaJobs implements ActionListener {
                     }
 
                     if (idCartasLanzadas.contains(Integer.parseInt(this.objPartidaJobs.carta1.getName()))) {
-                        contadorAciertosJugador++;
+                        subirPuntosJugador();
                         idCartasMarcadas.add(Integer.parseInt(this.objPartidaJobs.carta1.getName()));
                         ArduinoConnector.setBotonPresionado("99");
                         marcarCartaArduino(this.objPartidaJobs.carta1);
@@ -215,7 +230,7 @@ public class ControladorPartidaJobs implements ActionListener {
 //                    ArduinoConnector.setBotonPresionado("99");
 //                    marcarCartaArduino(this.objPartidaJobs.carta1);
 //                    reproducirSonido();
-//                    contadorAciertosJugador++;
+//                    subirPuntosJugador();
 //                    return;
 //                }
                 break;
@@ -228,7 +243,7 @@ public class ControladorPartidaJobs implements ActionListener {
                         }
                         if (Integer.parseInt(this.objPartidaJobs.carta2.getName()) == idCartaLanzada) {
                             System.err.println("ESTA ES LA CARTA");
-                            contadorAciertosJugador++;
+                            subirPuntosJugador();
                             idCartasMarcadas.add(idCartaLanzada);
                             ArduinoConnector.setBotonPresionado("99");
                             marcarCartaArduino(this.objPartidaJobs.carta2);
@@ -246,7 +261,7 @@ public class ControladorPartidaJobs implements ActionListener {
                     }
 
                     if (idCartasLanzadas.contains(Integer.parseInt(this.objPartidaJobs.carta2.getName()))) {
-                        contadorAciertosJugador++;
+                        subirPuntosJugador();
                         idCartasMarcadas.add(Integer.parseInt(this.objPartidaJobs.carta2.getName()));
                         ArduinoConnector.setBotonPresionado("99");
                         marcarCartaArduino(this.objPartidaJobs.carta2);
@@ -257,13 +272,13 @@ public class ControladorPartidaJobs implements ActionListener {
 //                    ArduinoConnector.setBotonPresionado("99");
 //                    marcarCartaArduino(this.objPartidaJobs.carta2);
 //                    reproducirSonido();
-//                    contadorAciertosJugador++;
+//                    subirPuntosJugador();
 //
 //                    return;
 //                }
                 break;
             case "BOTON_3_PRESIONADO":
-                 if (idCartas.contains(idCartaLanzada)) {
+                if (idCartas.contains(idCartaLanzada)) {
 
                     if (!Configuracion.isPresionarSinLimite()) {
                         if (idCartasMarcadas.contains(Integer.parseInt(this.objPartidaJobs.carta3.getName()))) {
@@ -271,7 +286,7 @@ public class ControladorPartidaJobs implements ActionListener {
                         }
                         if (Integer.parseInt(this.objPartidaJobs.carta3.getName()) == idCartaLanzada) {
                             System.err.println("ESTA ES LA CARTA");
-                            contadorAciertosJugador++;
+                            subirPuntosJugador();
                             idCartasMarcadas.add(idCartaLanzada);
                             ArduinoConnector.setBotonPresionado("99");
                             marcarCartaArduino(this.objPartidaJobs.carta3);
@@ -290,7 +305,7 @@ public class ControladorPartidaJobs implements ActionListener {
 
                     if (idCartasLanzadas.contains(Integer.parseInt(this.objPartidaJobs.carta3.getName()))) {
                         idCartasMarcadas.add(Integer.parseInt(this.objPartidaJobs.carta3.getName()));
-                        contadorAciertosJugador++;
+                        subirPuntosJugador();
                         ArduinoConnector.setBotonPresionado("99");
                         marcarCartaArduino(this.objPartidaJobs.carta3);
                         reproducirSonido();
@@ -300,7 +315,7 @@ public class ControladorPartidaJobs implements ActionListener {
 //                    ArduinoConnector.setBotonPresionado("99");
 //                    marcarCartaArduino(this.objPartidaJobs.carta3);
 //                    reproducirSonido();
-//                    contadorAciertosJugador++;
+//                    subirPuntosJugador();
 //                    return;
 //                }
                 break;
@@ -313,7 +328,7 @@ public class ControladorPartidaJobs implements ActionListener {
                         }
                         if (Integer.parseInt(this.objPartidaJobs.carta4.getName()) == idCartaLanzada) {
                             System.err.println("ESTA ES LA CARTA");
-                            contadorAciertosJugador++;
+                            subirPuntosJugador();
                             idCartasMarcadas.add(idCartaLanzada);
                             ArduinoConnector.setBotonPresionado("99");
                             marcarCartaArduino(this.objPartidaJobs.carta4);
@@ -332,7 +347,7 @@ public class ControladorPartidaJobs implements ActionListener {
 
                     if (idCartasLanzadas.contains(Integer.parseInt(this.objPartidaJobs.carta4.getName()))) {
                         idCartasMarcadas.add(Integer.parseInt(this.objPartidaJobs.carta4.getName()));
-                        contadorAciertosJugador++;
+                        subirPuntosJugador();
                         ArduinoConnector.setBotonPresionado("99");
                         marcarCartaArduino(this.objPartidaJobs.carta4);
                         reproducirSonido();
@@ -342,7 +357,7 @@ public class ControladorPartidaJobs implements ActionListener {
 //                    ArduinoConnector.setBotonPresionado("99");
 //                    marcarCartaArduino(this.objPartidaJobs.carta4);
 //                    reproducirSonido();
-//                    contadorAciertosJugador++;
+//                    subirPuntosJugador();
 //                    return;
 //                }
                 break;
@@ -355,7 +370,7 @@ public class ControladorPartidaJobs implements ActionListener {
                         }
                         if (Integer.parseInt(this.objPartidaJobs.carta5.getName()) == idCartaLanzada) {
                             System.err.println("ESTA ES LA CARTA");
-                            contadorAciertosJugador++;
+                            subirPuntosJugador();
                             idCartasMarcadas.add(idCartaLanzada);
                             ArduinoConnector.setBotonPresionado("99");
                             marcarCartaArduino(this.objPartidaJobs.carta5);
@@ -374,7 +389,7 @@ public class ControladorPartidaJobs implements ActionListener {
 
                     if (idCartasLanzadas.contains(Integer.parseInt(this.objPartidaJobs.carta5.getName()))) {
                         idCartasMarcadas.add(Integer.parseInt(this.objPartidaJobs.carta5.getName()));
-                        contadorAciertosJugador++;
+                        subirPuntosJugador();
                         ArduinoConnector.setBotonPresionado("99");
                         marcarCartaArduino(this.objPartidaJobs.carta5);
                         reproducirSonido();
@@ -384,7 +399,7 @@ public class ControladorPartidaJobs implements ActionListener {
 //                    ArduinoConnector.setBotonPresionado("99");
 //                    marcarCartaArduino(this.objPartidaJobs.carta5);
 //                    reproducirSonido();
-//                    contadorAciertosJugador++;
+//                    subirPuntosJugador();
 //                    return;
 //                }
                 break;
@@ -397,7 +412,7 @@ public class ControladorPartidaJobs implements ActionListener {
                         }
                         if (Integer.parseInt(this.objPartidaJobs.carta6.getName()) == idCartaLanzada) {
                             System.err.println("ESTA ES LA CARTA");
-                            contadorAciertosJugador++;
+                            subirPuntosJugador();
                             idCartasMarcadas.add(idCartaLanzada);
                             ArduinoConnector.setBotonPresionado("99");
                             marcarCartaArduino(this.objPartidaJobs.carta6);
@@ -416,7 +431,7 @@ public class ControladorPartidaJobs implements ActionListener {
 
                     if (idCartasLanzadas.contains(Integer.parseInt(this.objPartidaJobs.carta6.getName()))) {
                         idCartasMarcadas.add(Integer.parseInt(this.objPartidaJobs.carta6.getName()));
-                        contadorAciertosJugador++;
+                        subirPuntosJugador();
                         ArduinoConnector.setBotonPresionado("99");
                         marcarCartaArduino(this.objPartidaJobs.carta6);
                         reproducirSonido();
@@ -426,7 +441,7 @@ public class ControladorPartidaJobs implements ActionListener {
 //                    ArduinoConnector.setBotonPresionado("99");
 //                    marcarCartaArduino(this.objPartidaJobs.carta6);
 //                    reproducirSonido();
-//                    contadorAciertosJugador++;
+//                    subirPuntosJugador();
 //                    return;
 //                }
                 break;
@@ -439,7 +454,7 @@ public class ControladorPartidaJobs implements ActionListener {
                         }
                         if (Integer.parseInt(this.objPartidaJobs.carta7.getName()) == idCartaLanzada) {
                             System.err.println("ESTA ES LA CARTA");
-                            contadorAciertosJugador++;
+                            subirPuntosJugador();
                             idCartasMarcadas.add(idCartaLanzada);
                             ArduinoConnector.setBotonPresionado("99");
                             marcarCartaArduino(this.objPartidaJobs.carta7);
@@ -458,7 +473,7 @@ public class ControladorPartidaJobs implements ActionListener {
 
                     if (idCartasLanzadas.contains(Integer.parseInt(this.objPartidaJobs.carta7.getName()))) {
                         idCartasMarcadas.add(Integer.parseInt(this.objPartidaJobs.carta7.getName()));
-                        contadorAciertosJugador++;
+                        subirPuntosJugador();
                         ArduinoConnector.setBotonPresionado("99");
                         marcarCartaArduino(this.objPartidaJobs.carta7);
                         reproducirSonido();
@@ -468,7 +483,7 @@ public class ControladorPartidaJobs implements ActionListener {
 //                    ArduinoConnector.setBotonPresionado("99");
 //                    marcarCartaArduino(this.objPartidaJobs.carta7);
 //                    reproducirSonido();
-//                    contadorAciertosJugador++;
+//                    subirPuntosJugador();
 //                    return;
 //                }
                 break;
@@ -481,7 +496,7 @@ public class ControladorPartidaJobs implements ActionListener {
                         }
                         if (Integer.parseInt(this.objPartidaJobs.carta8.getName()) == idCartaLanzada) {
                             System.err.println("ESTA ES LA CARTA");
-                            contadorAciertosJugador++;
+                            subirPuntosJugador();
                             idCartasMarcadas.add(idCartaLanzada);
                             ArduinoConnector.setBotonPresionado("99");
                             marcarCartaArduino(this.objPartidaJobs.carta8);
@@ -500,7 +515,7 @@ public class ControladorPartidaJobs implements ActionListener {
 
                     if (idCartasLanzadas.contains(Integer.parseInt(this.objPartidaJobs.carta8.getName()))) {
                         idCartasMarcadas.add(Integer.parseInt(this.objPartidaJobs.carta8.getName()));
-                        contadorAciertosJugador++;
+                        subirPuntosJugador();
                         ArduinoConnector.setBotonPresionado("99");
                         marcarCartaArduino(this.objPartidaJobs.carta8);
                         reproducirSonido();
@@ -510,7 +525,7 @@ public class ControladorPartidaJobs implements ActionListener {
 //                    ArduinoConnector.setBotonPresionado("99");
 //                    marcarCartaArduino(this.objPartidaJobs.carta8);
 //                    reproducirSonido();
-//                    contadorAciertosJugador++;
+//                    subirPuntosJugador();
 //                    return;
 //                }
                 break;
@@ -523,7 +538,7 @@ public class ControladorPartidaJobs implements ActionListener {
                         }
                         if (Integer.parseInt(this.objPartidaJobs.carta9.getName()) == idCartaLanzada) {
                             System.err.println("ESTA ES LA CARTA");
-                            contadorAciertosJugador++;
+                            subirPuntosJugador();
                             idCartasMarcadas.add(idCartaLanzada);
                             ArduinoConnector.setBotonPresionado("99");
                             marcarCartaArduino(this.objPartidaJobs.carta9);
@@ -542,18 +557,18 @@ public class ControladorPartidaJobs implements ActionListener {
 
                     if (idCartasLanzadas.contains(Integer.parseInt(this.objPartidaJobs.carta9.getName()))) {
                         idCartasMarcadas.add(Integer.parseInt(this.objPartidaJobs.carta9.getName()));
-                        contadorAciertosJugador++;
+                        subirPuntosJugador();
                         ArduinoConnector.setBotonPresionado("99");
                         marcarCartaArduino(this.objPartidaJobs.carta9);
                         reproducirSonido();
                     }
                 }
-                
+
 //                if (idCartaLanzada == Integer.parseInt(this.objPartidaJobs.carta9.getName())) {
 //                    ArduinoConnector.setBotonPresionado("99");
 //                    marcarCartaArduino(this.objPartidaJobs.carta9);
 //                    reproducirSonido();
-//                    contadorAciertosJugador++;
+//                    subirPuntosJugador();
 //                    return;
 //                }
                 break;
@@ -563,7 +578,7 @@ public class ControladorPartidaJobs implements ActionListener {
 //        ArduinoConnector.setBotonPresionado("99");
 
     }
-    
+
     public void marcarCartaArduino(JButton cartaSeleccionada) {
         ImageIcon iconoImagen = new ImageIcon(getClass().getResource("/categorias/profesiones/marcadas/1.png"));
         int width = cartaSeleccionada.getWidth();
@@ -585,46 +600,46 @@ public class ControladorPartidaJobs implements ActionListener {
             return;
         }
         if (e.getSource() == this.objPartidaJobs.carta1) {
-            comprobarCartaSeleccionada(this.objPartidaJobs.carta1,Configuracion.isPresionarSinLimite());
+            comprobarCartaSeleccionada(this.objPartidaJobs.carta1, Configuracion.isPresionarSinLimite());
             return;
         }
         if (e.getSource() == this.objPartidaJobs.carta2) {
-            comprobarCartaSeleccionada(this.objPartidaJobs.carta2,Configuracion.isPresionarSinLimite());
+            comprobarCartaSeleccionada(this.objPartidaJobs.carta2, Configuracion.isPresionarSinLimite());
 
             return;
         }
         if (e.getSource() == this.objPartidaJobs.carta3) {
-            comprobarCartaSeleccionada(this.objPartidaJobs.carta3,Configuracion.isPresionarSinLimite());
+            comprobarCartaSeleccionada(this.objPartidaJobs.carta3, Configuracion.isPresionarSinLimite());
 
             return;
         }
         if (e.getSource() == this.objPartidaJobs.carta4) {
-            comprobarCartaSeleccionada(this.objPartidaJobs.carta4,Configuracion.isPresionarSinLimite());
+            comprobarCartaSeleccionada(this.objPartidaJobs.carta4, Configuracion.isPresionarSinLimite());
 
             return;
         }
         if (e.getSource() == this.objPartidaJobs.carta5) {
-            comprobarCartaSeleccionada(this.objPartidaJobs.carta5,Configuracion.isPresionarSinLimite());
+            comprobarCartaSeleccionada(this.objPartidaJobs.carta5, Configuracion.isPresionarSinLimite());
 
             return;
         }
         if (e.getSource() == this.objPartidaJobs.carta6) {
-            comprobarCartaSeleccionada(this.objPartidaJobs.carta6,Configuracion.isPresionarSinLimite());
+            comprobarCartaSeleccionada(this.objPartidaJobs.carta6, Configuracion.isPresionarSinLimite());
 
             return;
         }
         if (e.getSource() == this.objPartidaJobs.carta7) {
-            comprobarCartaSeleccionada(this.objPartidaJobs.carta7,Configuracion.isPresionarSinLimite());
+            comprobarCartaSeleccionada(this.objPartidaJobs.carta7, Configuracion.isPresionarSinLimite());
 
             return;
         }
         if (e.getSource() == this.objPartidaJobs.carta8) {
-            comprobarCartaSeleccionada(this.objPartidaJobs.carta8,Configuracion.isPresionarSinLimite());
+            comprobarCartaSeleccionada(this.objPartidaJobs.carta8, Configuracion.isPresionarSinLimite());
 
             return;
         }
         if (e.getSource() == this.objPartidaJobs.carta9) {
-            comprobarCartaSeleccionada(this.objPartidaJobs.carta9,Configuracion.isPresionarSinLimite());
+            comprobarCartaSeleccionada(this.objPartidaJobs.carta9, Configuracion.isPresionarSinLimite());
 
             return;
         }
@@ -674,7 +689,7 @@ public class ControladorPartidaJobs implements ActionListener {
 //        if (idCartas.contains(idCartaLanzada)) {
 //            if (Integer.parseInt(carta.getName()) == idCartaLanzada) {
 //                System.err.println("ESTA ES LA CARTA");
-//                contadorAciertosJugador++;
+//                subirPuntosJugador();
 //                marcarCarta(carta);
 //                if (contadorAciertosJugador > 8) {
 //                    JOptionPane.showMessageDialog(this.objPartidaJobs, "You win!");
@@ -687,13 +702,16 @@ public class ControladorPartidaJobs implements ActionListener {
 //    }
     ArrayList<Integer> idCartasLanzadas = new ArrayList<>();
     ArrayList<Integer> idCartasMarcadas = new ArrayList<>();
-    
+
     public void comprobarCartaSeleccionada(JButton carta, boolean presionarSinLimite) {
         if (idCartas.contains(idCartaLanzada)) {
             if (!presionarSinLimite) {
+                if (idCartasMarcadas.contains(Integer.parseInt(carta.getName()))) {
+                    return;
+                }
                 if (Integer.parseInt(carta.getName()) == idCartaLanzada) {
                     System.err.println("ESTA ES LA CARTA");
-                    contadorAciertosJugador++;
+                    subirPuntosJugador();
                     idCartasMarcadas.add(idCartaLanzada);
                     marcarCarta(carta);
 //                if (contadorAciertosJugador > 8) {
@@ -707,14 +725,14 @@ public class ControladorPartidaJobs implements ActionListener {
             }
 
         }
-        
+
         if (presionarSinLimite) {
             if (idCartasMarcadas.contains(Integer.parseInt(carta.getName()))) {
                 return;
             }
 
             if (idCartasLanzadas.contains(Integer.parseInt(carta.getName()))) {
-                contadorAciertosJugador++;
+                subirPuntosJugador();
                 idCartasMarcadas.add(Integer.parseInt(carta.getName()));
                 marcarCarta(carta);
             }
@@ -816,16 +834,34 @@ public class ControladorPartidaJobs implements ActionListener {
 //        // Iniciar el temporizador
 //        timer.start();
 //    }
-    
+    private void registrarPartida(boolean gana) {
+        PartidaObjeto objPartidaObjeto = new PartidaObjeto();
+        objPartidaObjeto.setIdJugador(Sesion.getIdJugador());
+        objPartidaObjeto.setPuntos(contadorAciertosJugador);
+        objPartidaObjeto.setFecha(LocalDate.now().toString());
+        if (gana) {
+            objPartidaObjeto.setResultado("GANA");
+        } else {
+            objPartidaObjeto.setResultado("PIERDE");
+        }
+        objPartidaObjeto.setIdDificultad(tipoDificultad);
+        objPartidaObjeto.setIdCategoria(idCategoria);
+
+        objOperacionesDBPartida.setObjPartida(objPartidaObjeto);
+        objOperacionesDBPartida.create();
+    }
+
     public void verificarGanador() {
         if (contadorAciertosJugador > 8) {
             Sesion.setPuntosGanados(contadorAciertosJugador);
+            registrarPartida(true);
             JugadorGana objJugadorGana = new JugadorGana();
             objJugadorGana.puntos.setText(String.valueOf(Sesion.getPuntosGanados()));
             objJugadorGana.setVisible(true);
             timer.stop();
         } else if (contadorAciertosBot > 8) {
             Sesion.setPuntosGanados(contadorAciertosJugador);
+            registrarPartida(false);
             JugadorPierde objJugadorPierde = new JugadorPierde();
             objJugadorPierde.puntos.setText(String.valueOf(Sesion.getPuntosGanados()));
             objJugadorPierde.setVisible(true);
@@ -833,7 +869,7 @@ public class ControladorPartidaJobs implements ActionListener {
 
         }
     }
-    
+
     private void iniciarTemporizador(int retraso) {
         // Crear un nuevo Timer que se ejecute cada 3000 milisegundos (3 segundos)
         timer = new Timer(retraso, new ActionListener() {
@@ -933,7 +969,7 @@ public class ControladorPartidaJobs implements ActionListener {
         cartaSeleccionada.setIcon(scaledIcon);
 
     }
-    
+
     public void reproducirSonido() {
         String rutaArchivo = "/sonidos/clics/point.wav";
 //        try {
