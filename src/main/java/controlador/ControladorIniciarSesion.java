@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import modelo.Configuracion;
 import modelo.Sesion;
 import modelo.Usuario;
 import vista.IniciarSesion;
@@ -63,6 +64,8 @@ public class ControladorIniciarSesion implements ActionListener {
                     if (objUsuarioEnLista.getContrasenia().equals(this.objIniciarSesion.entradaPassword.getText())) {
                         flagUsuarioEncontrado = true;
                         sesionActiva = objUsuarioEnLista;
+                        Sesion.setIdJugador(objUsuarioEnLista.getId());
+                        Configuracion.setInicioSesion(true);
                         break;
                     } else {
                         JOptionPane.showMessageDialog(objIniciarSesion, "Contraseña incorrecta");
