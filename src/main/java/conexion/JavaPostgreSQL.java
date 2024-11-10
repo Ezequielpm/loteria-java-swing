@@ -1,40 +1,45 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package conexion;
 
-/**
- *
- * @author angel
- */
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 
 /**
- * Basic connection to PostgreSQL database. Conexión básica a la base de datos
- * PostgreSQL.
- *
+ * Basic connection to PostgreSQL database using Singleton pattern.
+ * Conexión básica a la base de datos PostgreSQL utilizando el patrón Singleton.
  */
 public class JavaPostgreSQL {
 
-    /**
-     * We establish the connection with the database <b>customerdb</b>.
-     * Establecemos la conexión con la base de datos <b>customerdb</b>.
-     */
-    public Connection connection = null;
-    public Statement stmt = null;
+    private static JavaPostgreSQL instance = null;
+    private Connection connection = null;
+    private Statement stmt = null;
 
-    public void connectDatabase() {
+    // Private constructor to prevent instantiation
+    private JavaPostgreSQL() {
+        connectDatabase();
+    }
+
+    // Static method to get the single instance of the class
+    public static JavaPostgreSQL getInstance() {
+        if (instance == null) {
+            instance = new JavaPostgreSQL();
+        }
+        return instance;
+    }
+
+    /**
+     * Establishes the connection with the database <b>customerdb</b>.
+     * Establece la conexión con la base de datos <b>customerdb</b>.
+     */
+    private void connectDatabase() {
         try {
-            // We register the PostgreSQL driver
-            // Registramos el driver de PostgresSQL
+            // Register the PostgreSQL driver
             try {
                 Class.forName("org.postgresql.Driver");
             } catch (ClassNotFoundException ex) {
                 System.out.println("Error al registrar el driver de PostgreSQL: " + ex);
             }
-            // Database connect
-            // Conectamos con la base de datos
+            // Connect to the database
             connection = DriverManager.getConnection(
                     "jdbc:postgresql://127.0.0.1/loteria",
                     "postgres", "ezequielpm123");
@@ -47,14 +52,22 @@ public class JavaPostgreSQL {
         }
     }
 
+    public Connection getConnection() {
+        return connection;
+    }
+
+    public Statement getStatement() {
+        return stmt;
+    }
+
     /**
-     * Testing Java PostgreSQL connection with host and port Probando la
-     * conexión en Java a PostgreSQL especificando el host y el puerto.
+     * Testing Java PostgreSQL connection with host and port
+     * Probando la conexión en Java a PostgreSQL especificando el host y el puerto.
      *
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        JavaPostgreSQL javaPostgreSQLBasic = new JavaPostgreSQL();
-        javaPostgreSQLBasic.connectDatabase();
+        JavaPostgreSQL javaPostgreSQL = JavaPostgreSQL.getInstance();
+        javaPostgreSQL.connectDatabase();
     }
 }
