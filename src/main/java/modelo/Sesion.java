@@ -13,7 +13,7 @@ public class Sesion {
     private Usuario sesionUsuario;
     
     private static int puntosGanados;
-
+    private static int idJugador;
     private Sesion() {}
 
     public static Sesion getInstance() {
@@ -37,6 +37,14 @@ public class Sesion {
 
     public static void setPuntosGanados(int puntosGanados) {
         Sesion.puntosGanados = puntosGanados;
+    }
+
+    public static int getIdJugador() {
+        return idJugador;
+    }
+
+    public static void setIdJugador(int idJugador) {
+        Sesion.idJugador = idJugador;
     }
     
     
