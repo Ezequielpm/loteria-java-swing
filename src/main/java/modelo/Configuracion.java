@@ -13,6 +13,7 @@ public class Configuracion {
     private static boolean usarArduino;
     private static String dificultad;
     private static boolean presionarSinLimite;
+    private static boolean inicioSesion;
 
     // Método para establecer la opción elegida por el usuario
     public static void setOpcion(boolean usarArduino) {
@@ -40,6 +41,14 @@ public class Configuracion {
 
     public static void setPresionarSinLimite(boolean presionarSinLimite) {
         Configuracion.presionarSinLimite = presionarSinLimite;
+    }
+
+    public static boolean isInicioSesion() {
+        return inicioSesion;
+    }
+
+    public static void setInicioSesion(boolean inicioSesion) {
+        Configuracion.inicioSesion = inicioSesion;
     }
     
     
