@@ -69,7 +69,7 @@ public class ControladorPartidaObjects implements ActionListener{
         this.objPartidaObjects = objPartidaObjects;
         this.objTablero = objTablero;
         this.objTableroBot = objTableroBot;
-        
+        establecerCartaCentral();
         this.objPartidaObjects.botonBack.addActionListener(this);
         listaImagenes = new ArrayList<>();
         random = new Random();
@@ -968,6 +968,18 @@ public class ControladorPartidaObjects implements ActionListener{
 
     }
     
+    public void establecerCartaCentral() {
+        ImageIcon iconoImagen = new ImageIcon(getClass().getResource("/especiales/load.png"));
+        JLabel label = (JLabel) this.objPartidaObjects.cartaCambiante; // Asegúrate de que sea un JLabel
+        int width = label.getWidth();
+        int height = label.getHeight();
+// Redimensionar la imagen
+        Image scaledImage = iconoImagen.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+
+        // Establecer el ícono redimensionado en el JLabel
+        label.setIcon(scaledIcon);
+    }
     
     private void reproducirSonido(int numeroCarta) {
         try {

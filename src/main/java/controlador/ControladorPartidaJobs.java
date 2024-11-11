@@ -75,8 +75,7 @@ public class ControladorPartidaJobs implements ActionListener {
         this.objTablero = objTablero;
         this.objTableroBot = objTableroBot;
         obtenerCartas();
-        int tipoDificultad = 0;
-
+        establecerCartaCentral();
         // iniciarTemporizador();
         idCartas = new ArrayList<>();
         idCartasBot = new ArrayList<>();
@@ -590,6 +589,20 @@ public class ControladorPartidaJobs implements ActionListener {
 //        reproducirSonido();
     }
 
+    
+    public void establecerCartaCentral() {
+        ImageIcon iconoImagen = new ImageIcon(getClass().getResource("/especiales/load.png"));
+        JLabel label = (JLabel) this.objPartidaJobs.cartaCambiante; // Asegúrate de que sea un JLabel
+        int width = label.getWidth();
+        int height = label.getHeight();
+// Redimensionar la imagen
+        Image scaledImage = iconoImagen.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+
+        // Establecer el ícono redimensionado en el JLabel
+        label.setIcon(scaledIcon);
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.objPartidaJobs.botonBack) {

@@ -76,6 +76,7 @@ public class ControladorPartida implements ActionListener {
         numerosGenerados = new ArrayList<>();
         this.objTableroBot = objTableroBot;
         obtenerCartas();
+        establecerCartaCentral();
 
         this.objTablero = objTablero;
         idCartas = new ArrayList<>();
@@ -817,27 +818,40 @@ public class ControladorPartida implements ActionListener {
 
     private void reproducirSonido(int numeroCarta) {
         try {
-        // Cargar el archivo de sonido
-        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResource("/categorias/animales/sonidos/" + numeroCarta + ".wav"));
-        Clip clip = AudioSystem.getClip();
-        clip.open(audioInputStream);
-        clip.start(); // Reproducir el sonido
+            // Cargar el archivo de sonido
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResource("/categorias/animales/sonidos/" + numeroCarta + ".wav"));
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start(); // Reproducir el sonido
 
-        if (tipoDificultad == 2) {
-            // Crear un temporizador para volver a reproducir el sonido después de 1.5 segundos
-            Timer timer2 = new Timer(2500, new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    clip.setFramePosition(0); // Reiniciar el audio desde el inicio
-                    clip.start(); // Reproducir el sonido nuevamente
-                }
-            });
-            timer2.setRepeats(false); // Solo ejecuta una vez
-            timer2.start(); // Inicia el temporizador
+            if (tipoDificultad == 2) {
+                // Crear un temporizador para volver a reproducir el sonido después de 1.5 segundos
+                Timer timer2 = new Timer(2500, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        clip.setFramePosition(0); // Reiniciar el audio desde el inicio
+                        clip.start(); // Reproducir el sonido nuevamente
+                    }
+                });
+                timer2.setRepeats(false); // Solo ejecuta una vez
+                timer2.start(); // Inicia el temporizador
+            }
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace(); // Manejo de excepciones
         }
-    } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-        e.printStackTrace(); // Manejo de excepciones
     }
+
+    public void establecerCartaCentral() {
+        ImageIcon iconoImagen = new ImageIcon(getClass().getResource("/especiales/load.png"));
+        JLabel label = (JLabel) this.objPartida.cartaCambiante; // Asegúrate de que sea un JLabel
+        int width = label.getWidth();
+        int height = label.getHeight();
+// Redimensionar la imagen
+        Image scaledImage = iconoImagen.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+
+        // Establecer el ícono redimensionado en el JLabel
+        label.setIcon(scaledIcon);
     }
 
     public void mostrarCartasJugador(JButton... cartas) {
