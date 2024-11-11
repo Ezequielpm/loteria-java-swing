@@ -13,6 +13,8 @@ import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -118,7 +120,8 @@ public class ControladorPartida implements ActionListener {
     }
 
     Thread hiloComprobacion;
-    public void subirPuntosJugador(){
+
+    public void subirPuntosJugador() {
         contadorAciertosJugador += puntosQueGana;
     }
 
@@ -309,7 +312,7 @@ public class ControladorPartida implements ActionListener {
                     }
 
                     if (idCartasLanzadas.contains(Integer.parseInt(this.objPartida.carta3.getName()))) {
-                       subirPuntosJugador();
+                        subirPuntosJugador();
                         idCartasMarcadas.add(Integer.parseInt(this.objPartida.carta3.getName()));
                         ArduinoConnector.setBotonPresionado("99");
                         marcarCartaArduino(this.objPartida.carta3);
@@ -601,8 +604,7 @@ public class ControladorPartida implements ActionListener {
         objPartidaObjeto.setFecha(LocalDate.now().toString());
         if (gana) {
             objPartidaObjeto.setResultado("GANA");
-        }
-        else{
+        } else {
             objPartidaObjeto.setResultado("PIERDE");
         }
         objPartidaObjeto.setIdDificultad(tipoDificultad);
@@ -613,11 +615,11 @@ public class ControladorPartida implements ActionListener {
     }
 
     public void verificarGanador() {
-        if (contadorAciertosJugador > 8) {
+        if (idCartasMarcadas.size() > 8) {
             Sesion.setPuntosGanados(contadorAciertosJugador); // para mostrar los puntos en la vista de ganar
 
             registrarPartida(true);
-            
+
             JugadorGana objJugadorGana = new JugadorGana();
             objJugadorGana.puntos.setText(String.valueOf(Sesion.getPuntosGanados()));
             objJugadorGana.setVisible(true);
@@ -815,14 +817,27 @@ public class ControladorPartida implements ActionListener {
 
     private void reproducirSonido(int numeroCarta) {
         try {
-            // Cargar el archivo de sonido
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResource("/categorias/animales/sonidos/" + numeroCarta + ".wav"));
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.start(); // Reproducir el sonido
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-            e.printStackTrace(); // Manejo de excepciones
+        // Cargar el archivo de sonido
+        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResource("/categorias/animales/sonidos/" + numeroCarta + ".wav"));
+        Clip clip = AudioSystem.getClip();
+        clip.open(audioInputStream);
+        clip.start(); // Reproducir el sonido
+
+        if (tipoDificultad == 2) {
+            // Crear un temporizador para volver a reproducir el sonido después de 1.5 segundos
+            Timer timer2 = new Timer(2500, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    clip.setFramePosition(0); // Reiniciar el audio desde el inicio
+                    clip.start(); // Reproducir el sonido nuevamente
+                }
+            });
+            timer2.setRepeats(false); // Solo ejecuta una vez
+            timer2.start(); // Inicia el temporizador
         }
+    } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+        e.printStackTrace(); // Manejo de excepciones
+    }
     }
 
     public void mostrarCartasJugador(JButton... cartas) {

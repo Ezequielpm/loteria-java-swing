@@ -852,7 +852,7 @@ public class ControladorPartidaJobs implements ActionListener {
     }
 
     public void verificarGanador() {
-        if (contadorAciertosJugador > 8) {
+        if (idCartasMarcadas.size() > 8) {
             Sesion.setPuntosGanados(contadorAciertosJugador);
             registrarPartida(true);
             JugadorGana objJugadorGana = new JugadorGana();
@@ -917,18 +917,43 @@ public class ControladorPartidaJobs implements ActionListener {
             i++;
         }
     }
-
+    
     private void reproducirSonido(int numeroCarta) {
         try {
-            // Cargar el archivo de sonido
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResource("/categorias/profesiones/sonidos/" + numeroCarta + ".wav"));
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.start(); // Reproducir el sonido
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-            e.printStackTrace(); // Manejo de excepciones
+        // Cargar el archivo de sonido
+        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResource("/categorias/profesiones/sonidos/" + numeroCarta + ".wav"));
+        Clip clip = AudioSystem.getClip();
+        clip.open(audioInputStream);
+        clip.start(); // Reproducir el sonido
+
+        if (tipoDificultad == 2) {
+            // Crear un temporizador para volver a reproducir el sonido después de 1.5 segundos
+            Timer timer2 = new Timer(2500, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    clip.setFramePosition(0); // Reiniciar el audio desde el inicio
+                    clip.start(); // Reproducir el sonido nuevamente
+                }
+            });
+            timer2.setRepeats(false); // Solo ejecuta una vez
+            timer2.start(); // Inicia el temporizador
         }
+    } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+        e.printStackTrace(); // Manejo de excepciones
     }
+    }
+
+//    private void reproducirSonido(int numeroCarta) {
+//        try {
+//            // Cargar el archivo de sonido
+//            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResource("/categorias/profesiones/sonidos/" + numeroCarta + ".wav"));
+//            Clip clip = AudioSystem.getClip();
+//            clip.open(audioInputStream);
+//            clip.start(); // Reproducir el sonido
+//        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+//            e.printStackTrace(); // Manejo de excepciones
+//        }
+//    }
 
     public void obtenerCartas() {
 //        ImageIcon[] listaRutasImagenes;
