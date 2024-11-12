@@ -7,8 +7,15 @@ package controlador;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import modelo.Carta;
@@ -29,13 +36,13 @@ public class ControladorEscogerTablero implements ActionListener {
     Tablero objTablero;
     ArrayList<Carta> listaCartasBot;
     Tablero objTableroBot;
-        Integer[][] rutasCartasBot = {
-        {2,3,4,1,7,9,6,5,10},
-        {8,11,4,13,14,15,16,2,12},
-        {23,25,17,18,20,24,21,22,19},
-        {21,18,15,31,30,29,28,27,26},
-        {40,39,38,37,36,35,34,33,32},
-        {40,33,20,16,21,35,1,9,6}
+    Integer[][] rutasCartasBot = {
+        {2, 3, 4, 1, 7, 9, 6, 5, 10},
+        {8, 11, 4, 13, 14, 15, 16, 2, 12},
+        {23, 25, 17, 18, 20, 24, 21, 22, 19},
+        {21, 18, 15, 31, 30, 29, 28, 27, 26},
+        {40, 39, 38, 37, 36, 35, 34, 33, 32},
+        {40, 33, 20, 16, 21, 35, 1, 9, 6}
 
     };
 
@@ -124,13 +131,13 @@ public class ControladorEscogerTablero implements ActionListener {
 //            }
             obtenerCartas(rutasCartas);
             objTablero.setListaCartas(listaCartas);
-            
+            reproducirSonido();
+
             obtenerCartasBot(1);
             objTableroBot.setListaCartas(listaCartasBot);
-            iniciarPartida(objTablero,objTableroBot);
+            iniciarPartida(objTablero, objTableroBot);
 
 //            iniciarPartida(objTablero);
-
 //            Partida objPartida = new Partida();
 //            objPartida.setObjTablero(objTablero);
 //            objPartida.inicializarControlador();
@@ -146,10 +153,11 @@ public class ControladorEscogerTablero implements ActionListener {
 
             obtenerCartas(rutasCartas);
             objTablero.setListaCartas(listaCartas);
-            
+            reproducirSonido();
+
             obtenerCartasBot(2);
             objTableroBot.setListaCartas(listaCartasBot);
-            iniciarPartida(objTablero,objTableroBot);
+            iniciarPartida(objTablero, objTableroBot);
 
 //            iniciarPartida(objTablero);
             return;
@@ -161,10 +169,11 @@ public class ControladorEscogerTablero implements ActionListener {
                         21, 22, 19};
             obtenerCartas(rutasCartas);
             objTablero.setListaCartas(listaCartas);
-            
+            reproducirSonido();
+
             obtenerCartasBot(3);
             objTableroBot.setListaCartas(listaCartasBot);
-            iniciarPartida(objTablero,objTableroBot);
+            iniciarPartida(objTablero, objTableroBot);
 
 //            iniciarPartida(objTablero);
             return;
@@ -177,10 +186,12 @@ public class ControladorEscogerTablero implements ActionListener {
             obtenerCartas(rutasCartas);
             objTablero.setListaCartas(listaCartas);
 
-            
+            reproducirSonido();
+
             obtenerCartasBot(4);
             objTableroBot.setListaCartas(listaCartasBot);
-                        iniciarPartida(objTablero,objTableroBot);
+            iniciarPartida(objTablero, objTableroBot);
+            reproducirSonido();
 
 //            iniciarPartida(objTablero);
             return;
@@ -192,11 +203,12 @@ public class ControladorEscogerTablero implements ActionListener {
                         34, 33, 32};
             obtenerCartas(rutasCartas);
             objTablero.setListaCartas(listaCartas);
-            
+            reproducirSonido();
+
             obtenerCartasBot(5);
             objTableroBot.setListaCartas(listaCartasBot);
 
-            iniciarPartida(objTablero,objTableroBot);
+            iniciarPartida(objTablero, objTableroBot);
             return;
         }
         if (e.getSource() == this.objEscogerTablero.tablero6) {
@@ -206,29 +218,28 @@ public class ControladorEscogerTablero implements ActionListener {
                         1, 9, 6};
             obtenerCartas(rutasCartas);
             objTablero.setListaCartas(listaCartas);
+            reproducirSonido();
 
             obtenerCartasBot(6);
             objTableroBot.setListaCartas(listaCartasBot);
-            iniciarPartida(objTablero,objTableroBot);
+            iniciarPartida(objTablero, objTableroBot);
             return;
         }
     }
-
-
 
     public void obtenerCartasBot(int excepcion) {
         Random r = new Random();
         int indiceTableroBot = 0;
         do {
             indiceTableroBot = r.nextInt(6);
-        } while (indiceTableroBot == excepcion-1);
+        } while (indiceTableroBot == excepcion - 1);
         //for (int i = indiceTableroBot; i == indiceTableroBot; i++) {
-            for (int j = 0; j < 9; j++) {
-                Carta objCartaBot = new Carta();
-                objCartaBot.setIconoImagen(new ImageIcon(getClass().getResource("/categorias/animales/imagenes/" + rutasCartasBot[indiceTableroBot][j] + ".png")));
-                objCartaBot.setIdImagen(rutasCartasBot[indiceTableroBot][j]);
-                listaCartasBot.add(objCartaBot);
-            }
+        for (int j = 0; j < 9; j++) {
+            Carta objCartaBot = new Carta();
+            objCartaBot.setIconoImagen(new ImageIcon(getClass().getResource("/categorias/animales/imagenes/" + rutasCartasBot[indiceTableroBot][j] + ".png")));
+            objCartaBot.setIdImagen(rutasCartasBot[indiceTableroBot][j]);
+            listaCartasBot.add(objCartaBot);
+        }
         //}
     }
 
@@ -292,6 +303,24 @@ public class ControladorEscogerTablero implements ActionListener {
             ImageIcon scaledIcon = new ImageIcon(scaledImage);
             tablero.setIcon(scaledIcon);
             i++;
+        }
+    }
+
+    public void reproducirSonido() {
+        String rutaArchivo = "/sonidos/clics/clicBoton.wav";
+        try {
+            // Carga el archivo de sonido como un InputStream desde el classpath
+            InputStream audioSrc = getClass().getResourceAsStream(rutaArchivo);
+            if (audioSrc == null) {
+                System.err.println("No se encontró el archivo de sonido: " + rutaArchivo);
+                return;
+            }
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioSrc);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioStream);
+            clip.start(); // Reproduce el sonido
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
         }
     }
 }

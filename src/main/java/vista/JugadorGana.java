@@ -4,6 +4,7 @@
  */
 package vista;
 
+import controlador.ControladorJugadorGana;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -19,10 +20,12 @@ public class JugadorGana extends javax.swing.JFrame {
      * Creates new form JugadorGana
      */
     FondoPanel fondo = new FondoPanel();
+    public ControladorJugadorGana objControladorJugadorGana;
     public JugadorGana() {
         this.setContentPane(fondo);
         initComponents();
-        this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(this);
+        this.objControladorJugadorGana = new ControladorJugadorGana(this);
     }
 
     /**
@@ -36,26 +39,57 @@ public class JugadorGana extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         puntos = new javax.swing.JLabel();
+        botonHome = new javax.swing.JButton();
+        botonCambiarTablero = new javax.swing.JButton();
+        botonReiniciar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setOpaque(false);
 
+        puntos.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
+        puntos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        puntos.setText("333");
+
+        botonHome.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        botonCambiarTablero.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonCambiarTablero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCambiarTableroActionPerformed(evt);
+            }
+        });
+
+        botonReiniciar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(198, Short.MAX_VALUE)
+                .addComponent(botonReiniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 69, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(botonHome, javax.swing.GroupLayout.PREFERRED_SIZE, 69, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(botonCambiarTablero, javax.swing.GroupLayout.PREFERRED_SIZE, 69, Short.MAX_VALUE)
+                .addContainerGap(201, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(280, 280, 280)
-                .addComponent(puntos, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(280, 280, 280))
+                .addContainerGap(279, Short.MAX_VALUE)
+                .addComponent(puntos, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(279, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(170, 170, 170)
+                .addContainerGap(182, Short.MAX_VALUE)
                 .addComponent(puntos, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(170, 170, 170))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonCambiarTablero, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+                    .addComponent(botonReiniciar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botonHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -71,6 +105,10 @@ public class JugadorGana extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void botonCambiarTableroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCambiarTableroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonCambiarTableroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -121,6 +159,9 @@ public class JugadorGana extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton botonCambiarTablero;
+    public javax.swing.JButton botonHome;
+    public javax.swing.JButton botonReiniciar;
     private javax.swing.JPanel jPanel1;
     public javax.swing.JLabel puntos;
     // End of variables declaration//GEN-END:variables

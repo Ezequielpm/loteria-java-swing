@@ -18,7 +18,7 @@ public class Validador {
 
     public boolean validaCajaTextoCadena(javax.swing.JTextField cajaTexto) {
         if (cajaTexto.getText().isBlank()) {
-            JOptionPane.showMessageDialog(null, "Urgente Campo requerido");
+            JOptionPane.showMessageDialog(null, "You must fill in all fields");
             return false;
         }
         return true;
@@ -26,13 +26,13 @@ public class Validador {
 
     public boolean validaCajaTextoEntero(javax.swing.JTextField cajaTexto) {
         if (cajaTexto.getText().isBlank()) {
-            JOptionPane.showMessageDialog(null, "Urgente Campo requerido");
+            JOptionPane.showMessageDialog(null, "You must fill in all fields");
             return false;
         } else {
             try {
                 int a = Integer.parseInt(cajaTexto.getText());
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Valor no permitido, debe ser un numero");
+                JOptionPane.showMessageDialog(null, "Value not allowed, must be a number");
                 System.err.println("Error de conversión");
                 return false;
             }
@@ -45,20 +45,20 @@ public class Validador {
     public boolean validaCajaTextoEnteroEdad(javax.swing.JTextField cajaTexto) {
         int a = 0;
         if (cajaTexto.getText().isBlank()) {
-            JOptionPane.showMessageDialog(null, "Urgente Campo requerido");
+            JOptionPane.showMessageDialog(null, "You must fill in all fields");
             return false;
         } else {
             try {
                 a = Integer.parseInt(cajaTexto.getText());
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Valor no permitido, debe ser un numero");
+                JOptionPane.showMessageDialog(null, "Value not allowed, must be a number");
                 System.err.println("Error de conversión");
                 return false;
             }
             if (a > 0 && a < 100) {
                 //bien
             } else {
-                JOptionPane.showMessageDialog(null, "Edad no permitida");
+                JOptionPane.showMessageDialog(null, "Age not allowed");
                 return false;
             }
             return true;

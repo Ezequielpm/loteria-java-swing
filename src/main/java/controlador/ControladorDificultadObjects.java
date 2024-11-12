@@ -7,6 +7,13 @@ package controlador;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.InputStream;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import modelo.Configuracion;
 import vista.DificultadObjects;
@@ -39,6 +46,7 @@ public class ControladorDificultadObjects implements ActionListener {
         if (e.getSource() == this.objDificultadObjects.botonBack) {
             EscogerCategoria objEscogerCategoria = new EscogerCategoria();
             objEscogerCategoria.setVisible(true);
+            reproducirSonido();
 
             this.objDificultadObjects.dispose();
             return;
@@ -48,6 +56,7 @@ public class ControladorDificultadObjects implements ActionListener {
             Configuracion.setPresionarSinLimite(true);
             EscogerTableroObjects objEscogerTableroObjects = new EscogerTableroObjects();
             objEscogerTableroObjects.setVisible(true);
+            reproducirSonido();
 
             this.objDificultadObjects.dispose();
             return;
@@ -57,6 +66,7 @@ public class ControladorDificultadObjects implements ActionListener {
             Configuracion.setPresionarSinLimite(false);
             EscogerTableroObjects objEscogerTableroObjects = new EscogerTableroObjects();
             objEscogerTableroObjects.setVisible(true);
+            reproducirSonido();
 
             this.objDificultadObjects.dispose();
 
@@ -67,6 +77,7 @@ public class ControladorDificultadObjects implements ActionListener {
             Configuracion.setPresionarSinLimite(false);
             EscogerTableroObjects objEscogerTableroObjects = new EscogerTableroObjects();
             objEscogerTableroObjects.setVisible(true);
+            reproducirSonido();
 
             this.objDificultadObjects.dispose();
 
@@ -113,5 +124,23 @@ public class ControladorDificultadObjects implements ActionListener {
         Image scaledImageHard = iconoImagenHard.getImage().getScaledInstance(widthHard, heightHard, Image.SCALE_SMOOTH);
         ImageIcon scaledIconHard = new ImageIcon(scaledImageHard);
         this.objDificultadObjects.botonHard.setIcon(scaledIconHard);
+    }
+    
+    public void reproducirSonido() {
+        String rutaArchivo = "/sonidos/clics/clicBoton.wav";
+        try {
+            // Carga el archivo de sonido como un InputStream desde el classpath
+            InputStream audioSrc = getClass().getResourceAsStream(rutaArchivo);
+            if (audioSrc == null) {
+                System.err.println("No se encontró el archivo de sonido: " + rutaArchivo);
+                return;
+            }
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioSrc);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioStream);
+            clip.start(); // Reproduce el sonido
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
     }
 }

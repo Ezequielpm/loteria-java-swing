@@ -18,10 +18,13 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import modelo.Sesion;
+import vista.About;
 import vista.Dificultad;
 import vista.EscogerCategoria;
 import vista.EscogerControl;
 import vista.Menu;
+import vista.Perfil;
+import vista.Ranking;
 
 /**
  *
@@ -63,17 +66,27 @@ public class ControladorMenu implements ActionListener {
             
             reproducirSonido();
             if(Sesion.getInstance().getSesionUsuario() == null){
-                JOptionPane.showMessageDialog(this.objMenu, "Aun no has iniciado sesion!");
+                JOptionPane.showMessageDialog(this.objMenu, "You are not logged in yet!");
+                return;
             }
+            
+            Perfil objPerfil = new Perfil();
+            objPerfil.setVisible(true);
+            this.objMenu.dispose();
+            
             return;
         }
-        if (e.getSource() == this.objMenu.botonSettings) {
-
+        if (e.getSource() == this.objMenu.botonSettings) { //ranking
+            Ranking objRanking = new Ranking();
+            objRanking.setVisible(true);
+            this.objMenu.dispose();
             reproducirSonido();
             return;
         }
         if (e.getSource() == this.objMenu.botonAbout) {
-
+            About objAbout = new About();
+            objAbout.setVisible(true);
+            this.objMenu.dispose();
             reproducirSonido();
             return;
         }
@@ -87,15 +100,6 @@ public class ControladorMenu implements ActionListener {
 
     public void reproducirSonido() {
         String rutaArchivo = "/sonidos/clics/clicBoton.wav";
-//        try {
-//            File archivoSonido = new File(rutaArchivo);
-//            AudioInputStream audioStream = AudioSystem.getAudioInputStream(archivoSonido);
-//            Clip clip = AudioSystem.getClip();
-//            clip.open(audioStream);
-//            clip.start(); // Reproduce el sonido
-//        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-//            e.printStackTrace();
-//        }
         try {
             // Carga el archivo de sonido como un InputStream desde el classpath
             InputStream audioSrc = getClass().getResourceAsStream(rutaArchivo);
@@ -131,8 +135,8 @@ public class ControladorMenu implements ActionListener {
         ImageIcon scaledIconProfile = new ImageIcon(scaledImageProfile);
         this.objMenu.botonProfile.setIcon(scaledIconProfile);
         
-        //setings
-        ImageIcon iconoImagenSettings = new ImageIcon(getClass().getResource("/botones/btn-settings.png"));
+        //setings  -- > ranking
+        ImageIcon iconoImagenSettings = new ImageIcon(getClass().getResource("/iconos/btn-ranking-2.png"));
         int widthSettings = this.objMenu.botonSettings.getWidth();
         int heightSettings = this.objMenu.botonSettings.getHeight();
 

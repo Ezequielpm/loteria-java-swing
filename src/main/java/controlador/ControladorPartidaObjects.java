@@ -69,13 +69,15 @@ public class ControladorPartidaObjects implements ActionListener{
         this.objPartidaObjects = objPartidaObjects;
         this.objTablero = objTablero;
         this.objTableroBot = objTableroBot;
-        establecerCartaCentral();
+//        establecerCartaCentral();
         this.objPartidaObjects.botonBack.addActionListener(this);
         listaImagenes = new ArrayList<>();
         random = new Random();
         numerosGenerados = new ArrayList<>();
-        
         obtenerCartas();
+                establecerIconos();
+
+        
 
         //iniciarTemporizador();
 
@@ -581,6 +583,16 @@ public class ControladorPartidaObjects implements ActionListener{
 
     }
     
+    public void establecerIconos(){
+        ImageIcon iconoImagenRestart = new ImageIcon(getClass().getResource("/iconos/btn__restart-objects.png"));
+        int widthRestart = this.objPartidaObjects.botonRestart.getWidth();
+        int heightRestart = this.objPartidaObjects.botonRestart.getHeight();
+
+        Image scaledImageRestart = iconoImagenRestart.getImage().getScaledInstance(widthRestart, heightRestart, Image.SCALE_SMOOTH);
+        ImageIcon scaledIconRestart = new ImageIcon(scaledImageRestart);
+        this.objPartidaObjects.botonRestart.setIcon(scaledIconRestart);
+    }
+    
     
     public void marcarCartaArduino(JButton cartaSeleccionada) {
         ImageIcon iconoImagen = new ImageIcon(getClass().getResource("/categorias/objetos/marcadas/1.png"));
@@ -648,7 +660,52 @@ public class ControladorPartidaObjects implements ActionListener{
             return;
         }
         if (e.getSource() == this.objPartidaObjects.botonRestart) {
-            timer.stop();
+            reiniciarPartida();
+//            timer.stop();
+//            mostrarCartasJugador(this.objPartidaObjects.carta1,
+//                    this.objPartidaObjects.carta2,
+//                    this.objPartidaObjects.carta3,
+//                    this.objPartidaObjects.carta4,
+//                    this.objPartidaObjects.carta5,
+//                    this.objPartidaObjects.carta6,
+//                    this.objPartidaObjects.carta7,
+//                    this.objPartidaObjects.carta8,
+//                    this.objPartidaObjects.carta9);
+//
+//            mostrarCartasBot(this.objPartidaObjects.carta1Bot,
+//                    this.objPartidaObjects.carta2Bot,
+//                    this.objPartidaObjects.carta3Bot,
+//                    this.objPartidaObjects.carta4Bot,
+//                    this.objPartidaObjects.carta5Bot,
+//                    this.objPartidaObjects.carta6Bot,
+//                    this.objPartidaObjects.carta7Bot,
+//                    this.objPartidaObjects.carta8Bot,
+//                    this.objPartidaObjects.carta9Bot
+//            );
+//            contadorAciertosBot = 0;
+//            contadorAciertosJugador = 0;
+//            numerosGenerados.clear();
+//
+//            ImageIcon iconoImagen = new ImageIcon(getClass().getResource("/especiales/load.png"));
+//            JLabel label = (JLabel) this.objPartidaObjects.cartaCambiante; // Asegúrate de que sea un JLabel
+//            int width = label.getWidth();
+//            int height = label.getHeight();
+//// Redimensionar la imagen
+//            Image scaledImage = iconoImagen.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
+//            ImageIcon scaledIcon = new ImageIcon(scaledImage);
+//
+//            // Establecer el ícono redimensionado en el JLabel
+//            label.setIcon(scaledIcon);
+////            Thread.sleep(5000);
+//            iniciarTemporizador(retrasoDificultad);
+            return;
+        }
+        
+        
+       }
+    
+    public void reiniciarPartida(){
+        timer.stop();
             mostrarCartasJugador(this.objPartidaObjects.carta1,
                     this.objPartidaObjects.carta2,
                     this.objPartidaObjects.carta3,
@@ -685,11 +742,7 @@ public class ControladorPartidaObjects implements ActionListener{
             label.setIcon(scaledIcon);
 //            Thread.sleep(5000);
             iniciarTemporizador(retrasoDificultad);
-            return;
-        }
-        
-        
-       }
+    }
     
 //    public void comprobarCartaSeleccionada(JButton carta) {
 //        if (idCartas.contains(idCartaLanzada)) {

@@ -75,7 +75,9 @@ public class ControladorPartidaJobs implements ActionListener {
         this.objTablero = objTablero;
         this.objTableroBot = objTableroBot;
         obtenerCartas();
-        establecerCartaCentral();
+        establecerIconos();
+//                establecerCartaCentral();
+
         // iniciarTemporizador();
         idCartas = new ArrayList<>();
         idCartasBot = new ArrayList<>();
@@ -588,6 +590,20 @@ public class ControladorPartidaJobs implements ActionListener {
         cartaSeleccionada.setIcon(scaledIcon);
 //        reproducirSonido();
     }
+    
+    
+    
+    
+    public void establecerIconos(){
+        
+        ImageIcon iconoImagenRestart = new ImageIcon(getClass().getResource("/iconos/btn__restart-jobs.png"));
+        int widthRestart = this.objPartidaJobs.botonRestart.getWidth();
+        int heightRestart = this.objPartidaJobs.botonRestart.getHeight();
+
+        Image scaledImageRestart = iconoImagenRestart.getImage().getScaledInstance(widthRestart, heightRestart, Image.SCALE_SMOOTH);
+        ImageIcon scaledIconRestart = new ImageIcon(scaledImageRestart);
+        this.objPartidaJobs.botonRestart.setIcon(scaledIconRestart);
+    }
 
     
     public void establecerCartaCentral() {
@@ -601,6 +617,8 @@ public class ControladorPartidaJobs implements ActionListener {
 
         // Establecer el ícono redimensionado en el JLabel
         label.setIcon(scaledIcon);
+        
+        
     }
     
     @Override
@@ -657,7 +675,50 @@ public class ControladorPartidaJobs implements ActionListener {
             return;
         }
         if (e.getSource() == this.objPartidaJobs.botonRestart) {
-            timer.stop();
+            reiniciarPartida();
+//            timer.stop();
+//            mostrarCartasJugador(this.objPartidaJobs.carta1,
+//                    this.objPartidaJobs.carta2,
+//                    this.objPartidaJobs.carta3,
+//                    this.objPartidaJobs.carta4,
+//                    this.objPartidaJobs.carta5,
+//                    this.objPartidaJobs.carta6,
+//                    this.objPartidaJobs.carta7,
+//                    this.objPartidaJobs.carta8,
+//                    this.objPartidaJobs.carta9);
+//
+//            mostrarCartasBot(this.objPartidaJobs.carta1Bot,
+//                    this.objPartidaJobs.carta2Bot,
+//                    this.objPartidaJobs.carta3Bot,
+//                    this.objPartidaJobs.carta4Bot,
+//                    this.objPartidaJobs.carta5Bot,
+//                    this.objPartidaJobs.carta6Bot,
+//                    this.objPartidaJobs.carta7Bot,
+//                    this.objPartidaJobs.carta8Bot,
+//                    this.objPartidaJobs.carta9Bot
+//            );
+//            contadorAciertosBot = 0;
+//            contadorAciertosJugador = 0;
+//            numerosGenerados.clear();
+//
+//            ImageIcon iconoImagen = new ImageIcon(getClass().getResource("/especiales/load.png"));
+//            JLabel label = (JLabel) this.objPartidaJobs.cartaCambiante; // Asegúrate de que sea un JLabel
+//            int width = label.getWidth();
+//            int height = label.getHeight();
+//// Redimensionar la imagen
+//            Image scaledImage = iconoImagen.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
+//            ImageIcon scaledIcon = new ImageIcon(scaledImage);
+//
+//            // Establecer el ícono redimensionado en el JLabel
+//            label.setIcon(scaledIcon);
+////            Thread.sleep(5000);
+//            iniciarTemporizador(retrasoDificultad);
+            return;
+        }
+    }
+    
+    public void reiniciarPartida(){
+        timer.stop();
             mostrarCartasJugador(this.objPartidaJobs.carta1,
                     this.objPartidaJobs.carta2,
                     this.objPartidaJobs.carta3,
@@ -694,8 +755,6 @@ public class ControladorPartidaJobs implements ActionListener {
             label.setIcon(scaledIcon);
 //            Thread.sleep(5000);
             iniciarTemporizador(retrasoDificultad);
-            return;
-        }
     }
 
 //    public void comprobarCartaSeleccionada(JButton carta) {

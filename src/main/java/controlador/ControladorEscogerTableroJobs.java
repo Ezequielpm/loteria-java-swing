@@ -7,8 +7,15 @@ package controlador;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import modelo.Carta;
@@ -82,6 +89,7 @@ public class ControladorEscogerTableroJobs implements ActionListener {
                         5, 10, 9};
             obtenerCartas(rutasCartas);
             objTablero.setListaCartas(listaCartas);
+            reproducirSonido();
 
             obtenerCartasBot(1);
             objTableroBot.setListaCartas(listaCartasBot);
@@ -97,6 +105,7 @@ public class ControladorEscogerTableroJobs implements ActionListener {
 
             obtenerCartas(rutasCartas);
             objTablero.setListaCartas(listaCartas);
+            reproducirSonido();
 
             obtenerCartasBot(2);
             objTableroBot.setListaCartas(listaCartasBot);
@@ -111,6 +120,7 @@ public class ControladorEscogerTableroJobs implements ActionListener {
                         25, 27, 26};
             obtenerCartas(rutasCartas);
             objTablero.setListaCartas(listaCartas);
+            reproducirSonido();
 
             obtenerCartasBot(3);
             objTableroBot.setListaCartas(listaCartasBot);
@@ -125,6 +135,7 @@ public class ControladorEscogerTableroJobs implements ActionListener {
                         32, 35, 36};
             obtenerCartas(rutasCartas);
             objTablero.setListaCartas(listaCartas);
+            reproducirSonido();
 
             obtenerCartasBot(4);
             objTableroBot.setListaCartas(listaCartasBot);
@@ -139,6 +150,7 @@ public class ControladorEscogerTableroJobs implements ActionListener {
                         7, 33, 6};
             obtenerCartas(rutasCartas);
             objTablero.setListaCartas(listaCartas);
+            reproducirSonido();
 
             obtenerCartasBot(5);
             objTableroBot.setListaCartas(listaCartasBot);
@@ -153,6 +165,7 @@ public class ControladorEscogerTableroJobs implements ActionListener {
                         2, 13, 10};
             obtenerCartas(rutasCartas);
             objTablero.setListaCartas(listaCartas);
+            reproducirSonido();
 
             obtenerCartasBot(6);
             objTableroBot.setListaCartas(listaCartasBot);
@@ -238,6 +251,24 @@ public class ControladorEscogerTableroJobs implements ActionListener {
             ImageIcon scaledIcon = new ImageIcon(scaledImage);
             tablero.setIcon(scaledIcon);
             i++;
+        }
+    }
+    
+    public void reproducirSonido() {
+        String rutaArchivo = "/sonidos/clics/clicBoton.wav";
+        try {
+            // Carga el archivo de sonido como un InputStream desde el classpath
+            InputStream audioSrc = getClass().getResourceAsStream(rutaArchivo);
+            if (audioSrc == null) {
+                System.err.println("No se encontró el archivo de sonido: " + rutaArchivo);
+                return;
+            }
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioSrc);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioStream);
+            clip.start(); // Reproduce el sonido
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
         }
     }
 

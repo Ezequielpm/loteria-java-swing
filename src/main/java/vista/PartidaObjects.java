@@ -108,22 +108,31 @@ public class PartidaObjects extends javax.swing.JFrame {
         jPanel2.setOpaque(false);
 
         carta1.setContentAreaFilled(false);
+        carta1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         carta2.setContentAreaFilled(false);
+        carta2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         carta3.setContentAreaFilled(false);
+        carta3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         carta4.setContentAreaFilled(false);
+        carta4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         carta5.setContentAreaFilled(false);
+        carta5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         carta6.setContentAreaFilled(false);
+        carta6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         carta7.setContentAreaFilled(false);
+        carta7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         carta8.setContentAreaFilled(false);
+        carta8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         carta9.setContentAreaFilled(false);
+        carta9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -256,7 +265,7 @@ public class PartidaObjects extends javax.swing.JFrame {
         contenedorCartasLayout.setHorizontalGroup(
             contenedorCartasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenedorCartasLayout.createSequentialGroup()
-                .addComponent(cartaCambiante, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cartaCambiante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         contenedorCartasLayout.setVerticalGroup(
@@ -271,7 +280,7 @@ public class PartidaObjects extends javax.swing.JFrame {
         botonBack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         botonRestart.setFont(new java.awt.Font("Hiragino Mincho ProN", 0, 36)); // NOI18N
-        botonRestart.setText("Restart");
+        botonRestart.setContentAreaFilled(false);
         botonRestart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonRestartActionPerformed(evt);
@@ -286,9 +295,9 @@ public class PartidaObjects extends javax.swing.JFrame {
                 .addContainerGap(75, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(contenedorCartas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(botonRestart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botonRestart, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                    .addComponent(contenedorCartas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(79, Short.MAX_VALUE))
@@ -306,9 +315,9 @@ public class PartidaObjects extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(144, 144, 144)
+                        .addGap(146, 146, 146)
                         .addComponent(contenedorCartas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 165, Short.MAX_VALUE)
                         .addComponent(botonRestart, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(41, Short.MAX_VALUE))
@@ -376,7 +385,7 @@ public class PartidaObjects extends javax.swing.JFrame {
 
         @Override
         public void paint(Graphics g) {
-            image = new ImageIcon(getClass().getResource("/fondos/fondoObjectsPartida.png")).getImage();
+            image = new ImageIcon(getClass().getResource("/fondos/fondo__partida-objects_no_settings.png")).getImage();
             g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
             setOpaque(false);
             super.paint(g);

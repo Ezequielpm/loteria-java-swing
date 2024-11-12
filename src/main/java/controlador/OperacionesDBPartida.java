@@ -1,12 +1,15 @@
 package controlador;
 
 import conexion.JavaPostgreSQL;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.CRUD;
+import modelo.EstadisticasPerfil;
 import modelo.PartidaObjeto;
+import modelo.Sesion;
 
 /**
  * Class to handle database operations for "Partida" (game session).
@@ -51,6 +54,45 @@ public class OperacionesDBPartida extends CRUD {
     @Override
     public void delete() {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    
+    public EstadisticasPerfil obtenerEstadisticasPerfil(){
+        EstadisticasPerfil objEstadisticasPerfil = new EstadisticasPerfil();
+        try {
+            
+            ResultSet resultado = objJavaPostgreSQL.getStatement().executeQuery(
+                    "SELECT nombre FROM jugador WHERE idjug = " + Sesion.getIdJugador() + ";");
+            while(resultado.next()){
+                objEstadisticasPerfil.setNombreJugador(resultado.getString("nombre"));
+            }
+            System.out.println("NOMBRE:: "+objEstadisticasPerfil.getNombreJugador());
+//            ResultSet resultado = objJavaPostgreSQL.getStatement().executeQuery(
+//                "SELECT c.nombrecat AS categoria, " +
+//                "COUNT(CASE WHEN p.resultado = 'Victoria' THEN 1 END) AS victorias, " +
+//                "COUNT(CASE WHEN p.resultado = 'Derrota' THEN 1 END) AS derrotas, " +
+//                "SUM(p.puntos) AS puntos_totales " +
+//                "FROM partida p " +
+//                "JOIN categoria c ON p.idcat = c.idcat " +
+//                "WHERE p.idjug = " + idJugador + " " +
+//                "GROUP BY c.nombrecat;"
+//            );
+
+//            while (resultado.next()) {
+//                String categoria = resultado.getString("categoria");
+//                int victorias = resultado.getInt("victorias");
+//                int derrotas = resultado.getInt("derrotas");
+//                int puntosTotales = resultado.getInt("puntos_totales");
+//
+//                EstadisticasPerfil estadistica = new EstadisticasPartida(categoria, victorias, derrotas, puntosTotales);
+//                listaEstadisticas.add(estadistica);
+//            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(OperacionesDBPartida.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return  objEstadisticasPerfil;
     }
 
     public PartidaObjeto getObjPartida() {

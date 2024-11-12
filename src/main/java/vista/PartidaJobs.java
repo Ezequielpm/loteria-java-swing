@@ -107,22 +107,31 @@ public class PartidaJobs extends javax.swing.JFrame {
         jPanel2.setOpaque(false);
 
         carta1.setContentAreaFilled(false);
+        carta1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         carta2.setContentAreaFilled(false);
+        carta2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         carta3.setContentAreaFilled(false);
+        carta3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         carta4.setContentAreaFilled(false);
+        carta4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         carta5.setContentAreaFilled(false);
+        carta5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         carta6.setContentAreaFilled(false);
+        carta6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         carta7.setContentAreaFilled(false);
+        carta7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         carta8.setContentAreaFilled(false);
+        carta8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         carta9.setContentAreaFilled(false);
+        carta9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -263,7 +272,7 @@ public class PartidaJobs extends javax.swing.JFrame {
             contenedorCartasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contenedorCartasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(cartaCambiante, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+                .addComponent(cartaCambiante, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -271,7 +280,7 @@ public class PartidaJobs extends javax.swing.JFrame {
         botonBack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         botonRestart.setFont(new java.awt.Font("Hiragino Mincho ProN", 0, 36)); // NOI18N
-        botonRestart.setText("Restart");
+        botonRestart.setContentAreaFilled(false);
         botonRestart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonRestartActionPerformed(evt);
@@ -374,7 +383,7 @@ public class PartidaJobs extends javax.swing.JFrame {
 
         @Override
         public void paint(Graphics g) {
-            image = new ImageIcon(getClass().getResource("/fondos/fondoJobsPartida.png")).getImage();
+            image = new ImageIcon(getClass().getResource("/fondos/fondo__partida-jobs_no_settings.png")).getImage();
             g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
             setOpaque(false);
             super.paint(g);
