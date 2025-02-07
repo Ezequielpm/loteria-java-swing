@@ -23,6 +23,12 @@ import vista.Menu;
 public class ControladorJugadorPierde implements ActionListener{
     JugadorPierde objJugadorPierde;
 //    ControladorPartida
+    
+    ControladorPartida objControladorPartida; // controlador de la partida de animales
+    ControladorPartidaJobs objControladorPartidaJobs; // controlador de la partida de jobs
+    ControladorPartidaObjects objControladorPartidaObjects; // controlador de la partida de objects
+    
+    int tipoPartida = 0; // 1 -> animales, 2 -> jobs, 3 -> objetos
 
     public ControladorJugadorPierde(JugadorPierde objJugadorPierde) {
         this.objJugadorPierde = objJugadorPierde;
@@ -33,7 +39,28 @@ public class ControladorJugadorPierde implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==this.objJugadorPierde.botonReiniciar){
-            
+            switch (tipoPartida) {
+                case 1: //animales
+                    this.objControladorPartida.objPartida.setVisible(true);
+                    this.objControladorPartida.reiniciarPartida();
+                    this.objJugadorPierde.dispose();
+                    reproducirSonido();
+                    break;
+                case 2: //jobs
+                    this.objControladorPartidaJobs.objPartidaJobs.setVisible(true);
+                    this.objControladorPartidaJobs.reiniciarPartida();
+                    this.objJugadorPierde.dispose();
+                    reproducirSonido();
+                    break;
+                case 3: //objetos
+                    this.objControladorPartidaObjects.objPartidaObjects.setVisible(true);
+                    this.objControladorPartidaObjects.reiniciarPartida();
+                    this.objJugadorPierde.dispose();
+                    reproducirSonido();
+                    break;
+                default:
+                    break;
+            }
             return;
         }
         if(e.getSource()==this.objJugadorPierde.botonHome){
@@ -62,6 +89,48 @@ public class ControladorJugadorPierde implements ActionListener{
             e.printStackTrace();
         }
     }
+
+    public JugadorPierde getObjJugadorPierde() {
+        return objJugadorPierde;
+    }
+
+    public void setObjJugadorPierde(JugadorPierde objJugadorPierde) {
+        this.objJugadorPierde = objJugadorPierde;
+    }
+
+    public ControladorPartida getObjControladorPartida() {
+        return objControladorPartida;
+    }
+
+    public void setObjControladorPartida(ControladorPartida objControladorPartida) {
+        this.objControladorPartida = objControladorPartida;
+    }
+
+    public ControladorPartidaJobs getObjControladorPartidaJobs() {
+        return objControladorPartidaJobs;
+    }
+
+    public void setObjControladorPartidaJobs(ControladorPartidaJobs objControladorPartidaJobs) {
+        this.objControladorPartidaJobs = objControladorPartidaJobs;
+    }
+
+    public ControladorPartidaObjects getObjControladorPartidaObjects() {
+        return objControladorPartidaObjects;
+    }
+
+    public void setObjControladorPartidaObjects(ControladorPartidaObjects objControladorPartidaObjects) {
+        this.objControladorPartidaObjects = objControladorPartidaObjects;
+    }
+
+    public int getTipoPartida() {
+        return tipoPartida;
+    }
+
+    public void setTipoPartida(int tipoPartida) {
+        this.tipoPartida = tipoPartida;
+    }
+    
+    
     
     
 }

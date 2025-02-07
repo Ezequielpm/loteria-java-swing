@@ -51,8 +51,10 @@ public class JugadorGana extends javax.swing.JFrame {
         puntos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         puntos.setText("333");
 
+        botonHome.setContentAreaFilled(false);
         botonHome.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+        botonCambiarTablero.setContentAreaFilled(false);
         botonCambiarTablero.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         botonCambiarTablero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -60,6 +62,7 @@ public class JugadorGana extends javax.swing.JFrame {
             }
         });
 
+        botonReiniciar.setContentAreaFilled(false);
         botonReiniciar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

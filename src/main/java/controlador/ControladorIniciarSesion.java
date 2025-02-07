@@ -85,7 +85,7 @@ public class ControladorIniciarSesion implements ActionListener {
                 }
             }
             if (flagUsuarioEncontrado) {
-                JOptionPane.showMessageDialog(objIniciarSesion, "Bienvenido!");
+                JOptionPane.showMessageDialog(objIniciarSesion, "Welkome back!");
                 Sesion.getInstance().setSesionUsuario(sesionActiva); 
                 Menu objMenu = new Menu();
                 objMenu.setVisible(true);

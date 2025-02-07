@@ -39,6 +39,24 @@ public class Ranking extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         botonBack = new javax.swing.JButton();
+        nombreJugador2 = new javax.swing.JLabel();
+        nombreJugador1 = new javax.swing.JLabel();
+        nombreJugador3 = new javax.swing.JLabel();
+        puntosJugador1 = new javax.swing.JLabel();
+        puntosJugador2 = new javax.swing.JLabel();
+        puntosJugador3 = new javax.swing.JLabel();
+        nombreJugador5 = new javax.swing.JLabel();
+        puntosJugador5 = new javax.swing.JLabel();
+        nombreJugador4 = new javax.swing.JLabel();
+        puntosJugador4 = new javax.swing.JLabel();
+        nombreJugador6 = new javax.swing.JLabel();
+        puntosJugador6 = new javax.swing.JLabel();
+        puntosJugador9 = new javax.swing.JLabel();
+        nombreJugador9 = new javax.swing.JLabel();
+        nombreJugador8 = new javax.swing.JLabel();
+        puntosJugador8 = new javax.swing.JLabel();
+        puntosJugador7 = new javax.swing.JLabel();
+        nombreJugador7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,6 +65,60 @@ public class Ranking extends javax.swing.JFrame {
         botonBack.setContentAreaFilled(false);
         botonBack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+        nombreJugador2.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        nombreJugador2.setText("jLabel2");
+
+        nombreJugador1.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        nombreJugador1.setText("jLabel2");
+
+        nombreJugador3.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        nombreJugador3.setText("jLabel2");
+
+        puntosJugador1.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        puntosJugador1.setText("jLabel2");
+
+        puntosJugador2.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        puntosJugador2.setText("jLabel2");
+
+        puntosJugador3.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        puntosJugador3.setText("jLabel2");
+
+        nombreJugador5.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        nombreJugador5.setText("jLabel2");
+
+        puntosJugador5.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        puntosJugador5.setText("jLabel2");
+
+        nombreJugador4.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        nombreJugador4.setText("jLabel2");
+
+        puntosJugador4.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        puntosJugador4.setText("jLabel2");
+
+        nombreJugador6.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        nombreJugador6.setText("jLabel2");
+
+        puntosJugador6.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        puntosJugador6.setText("jLabel2");
+
+        puntosJugador9.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        puntosJugador9.setText("jLabel2");
+
+        nombreJugador9.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        nombreJugador9.setText("jLabel2");
+
+        nombreJugador8.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        nombreJugador8.setText("jLabel2");
+
+        puntosJugador8.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        puntosJugador8.setText("jLabel2");
+
+        puntosJugador7.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        puntosJugador7.setText("jLabel2");
+
+        nombreJugador7.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        nombreJugador7.setText("jLabel2");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -54,14 +126,86 @@ public class Ranking extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(botonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(731, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(91, 91, 91)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(nombreJugador2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nombreJugador1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nombreJugador3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(puntosJugador2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
+                    .addComponent(puntosJugador1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(puntosJugador3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(70, 70, 70)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(nombreJugador5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nombreJugador4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nombreJugador6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(puntosJugador5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(puntosJugador4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(puntosJugador6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(nombreJugador8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nombreJugador7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nombreJugador9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(puntosJugador8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(puntosJugador7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(puntosJugador9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(botonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(422, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(nombreJugador1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(nombreJugador2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(nombreJugador3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(puntosJugador1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(puntosJugador2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(puntosJugador3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(nombreJugador4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(nombreJugador5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(nombreJugador6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(puntosJugador4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(puntosJugador5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(puntosJugador6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(nombreJugador7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(nombreJugador8, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(nombreJugador9, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(puntosJugador7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(puntosJugador8, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(puntosJugador9, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(113, 113, 113))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -129,5 +273,23 @@ public class Ranking extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton botonBack;
     private javax.swing.JPanel jPanel1;
+    public javax.swing.JLabel nombreJugador1;
+    public javax.swing.JLabel nombreJugador2;
+    public javax.swing.JLabel nombreJugador3;
+    public javax.swing.JLabel nombreJugador4;
+    public javax.swing.JLabel nombreJugador5;
+    public javax.swing.JLabel nombreJugador6;
+    public javax.swing.JLabel nombreJugador7;
+    public javax.swing.JLabel nombreJugador8;
+    public javax.swing.JLabel nombreJugador9;
+    public javax.swing.JLabel puntosJugador1;
+    public javax.swing.JLabel puntosJugador2;
+    public javax.swing.JLabel puntosJugador3;
+    public javax.swing.JLabel puntosJugador4;
+    public javax.swing.JLabel puntosJugador5;
+    public javax.swing.JLabel puntosJugador6;
+    public javax.swing.JLabel puntosJugador7;
+    public javax.swing.JLabel puntosJugador8;
+    public javax.swing.JLabel puntosJugador9;
     // End of variables declaration//GEN-END:variables
 }

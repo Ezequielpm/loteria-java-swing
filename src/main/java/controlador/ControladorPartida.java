@@ -63,48 +63,53 @@ public class ControladorPartida implements ActionListener {
     int idCategoria = 1;
     int puntosQueGana = 0;
     OperacionesDBPartida objOperacionesDBPartida;
+    Clip clip;
+    Timer timer2;
 
     public ControladorPartida() {
     }
-    
-    public void reiniciarPartida(){
+
+    public void reiniciarPartida() {
         timer.stop();
-            mostrarCartasJugador(this.objPartida.carta1,
-                    this.objPartida.carta2,
-                    this.objPartida.carta3,
-                    this.objPartida.carta4,
-                    this.objPartida.carta5,
-                    this.objPartida.carta6,
-                    this.objPartida.carta7,
-                    this.objPartida.carta8,
-                    this.objPartida.carta9);
+        mostrarCartasJugador(this.objPartida.carta1,
+                this.objPartida.carta2,
+                this.objPartida.carta3,
+                this.objPartida.carta4,
+                this.objPartida.carta5,
+                this.objPartida.carta6,
+                this.objPartida.carta7,
+                this.objPartida.carta8,
+                this.objPartida.carta9);
 
-            mostrarCartasBot(this.objPartida.carta1Bot,
-                    this.objPartida.carta2Bot,
-                    this.objPartida.carta3Bot,
-                    this.objPartida.carta4Bot,
-                    this.objPartida.carta5Bot,
-                    this.objPartida.carta6Bot,
-                    this.objPartida.carta7Bot,
-                    this.objPartida.carta8Bot,
-                    this.objPartida.carta9Bot
-            );
-            contadorAciertosBot = 0;
-            contadorAciertosJugador = 0;
-            numerosGenerados.clear();
+        mostrarCartasBot(this.objPartida.carta1Bot,
+                this.objPartida.carta2Bot,
+                this.objPartida.carta3Bot,
+                this.objPartida.carta4Bot,
+                this.objPartida.carta5Bot,
+                this.objPartida.carta6Bot,
+                this.objPartida.carta7Bot,
+                this.objPartida.carta8Bot,
+                this.objPartida.carta9Bot
+        );
+        contadorAciertosBot = 0;
+        contadorAciertosJugador = 0;
+        numerosGenerados.clear();
 
-            ImageIcon iconoImagen = new ImageIcon(getClass().getResource("/especiales/load.png"));
-            JLabel label = (JLabel) this.objPartida.cartaCambiante; // Asegúrate de que sea un JLabel
-            int width = label.getWidth();
-            int height = label.getHeight();
+        idCartasLanzadas.clear();
+        idCartasMarcadas.clear();
+
+        ImageIcon iconoImagen = new ImageIcon(getClass().getResource("/especiales/load.png"));
+        JLabel label = (JLabel) this.objPartida.cartaCambiante; // Asegúrate de que sea un JLabel
+        int width = label.getWidth();
+        int height = label.getHeight();
 // Redimensionar la imagen
-            Image scaledImage = iconoImagen.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
-            ImageIcon scaledIcon = new ImageIcon(scaledImage);
+        Image scaledImage = iconoImagen.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
 
-            // Establecer el ícono redimensionado en el JLabel
-            label.setIcon(scaledIcon);
+        // Establecer el ícono redimensionado en el JLabel
+        label.setIcon(scaledIcon);
 //            Thread.sleep(5000);
-            iniciarTemporizador(retrasoDificultad);
+        iniciarTemporizador(retrasoDificultad);
     }
 
     public ControladorPartida(Partida objPartida, Tablero objTablero, Tablero objTableroBot) {
@@ -196,18 +201,18 @@ public class ControladorPartida implements ActionListener {
         }
 
         if (Configuracion.getDificultad().equals("easy")) {
-            retrasoDificultad = 10000;
+            retrasoDificultad = 2000;
             tipoDificultad = 1;
             puntosQueGana = 15;
             iniciarTemporizador(retrasoDificultad);
 
         } else if (Configuracion.getDificultad().equals("medium")) {
-            retrasoDificultad = 7000;
+            retrasoDificultad = 4000;
             tipoDificultad = 2;
             puntosQueGana = 30;
             iniciarTemporizador(retrasoDificultad);
         } else if (Configuracion.getDificultad().equals("hard")) {
-            retrasoDificultad = 4000;
+            retrasoDificultad = 2000;
             puntosQueGana = 50;
             tipoDificultad = 3;
             iniciarTemporizador(retrasoDificultad);
@@ -587,34 +592,61 @@ public class ControladorPartida implements ActionListener {
         objOperacionesDBPartida.setObjPartida(objPartidaObjeto);
         objOperacionesDBPartida.create();
     }
-
     public void verificarGanador() {
         if (idCartasMarcadas.size() > 8) {
             Sesion.setPuntosGanados(contadorAciertosJugador); // para mostrar los puntos en la vista de ganar
 
-            registrarPartida(true);
+            if (Sesion.getIdJugador() > 0) {
+                registrarPartida(true);
+            }
+           // clip.stop();
+            
+            if (clip != null) {
+    clip.stop();
+    clip.flush();  // Vacía el buffer del clip
+    clip.close();  // Cierra el clip para asegurarse de que no siga en memoria
+}
+            timer.stop();
+            if(tipoDificultad==2){
+                timer2.stop();
+            }
+            
+            
 
             JugadorGana objJugadorGana = new JugadorGana();
             objJugadorGana.puntos.setText(String.valueOf(Sesion.getPuntosGanados()));
             objJugadorGana.setVisible(true);
-            
+
             objJugadorGana.objControladorJugadorGana.setObjControladorPartida(this);
-            timer.stop();
+            objJugadorGana.objControladorJugadorGana.setTipoPartida(1);
             this.objPartida.setVisible(false);
 //            this.objPartida.dispose();
         } else if (contadorAciertosBot > 8) {
             Sesion.setPuntosGanados(contadorAciertosJugador);
-
-            registrarPartida(false);
+            if (Sesion.getIdJugador() > 0) {
+                registrarPartida(false);
+            }
 
             JugadorPierde objJugadorPierde = new JugadorPierde();
             objJugadorPierde.puntos.setText(String.valueOf(Sesion.getPuntosGanados()));
             objJugadorPierde.setVisible(true);
+
+            objJugadorPierde.objControladorJugadorPierde.setObjControladorPartida(this);
+            objJugadorPierde.objControladorJugadorPierde.setTipoPartida(1);
+            
+            
+            if (clip != null) {
+            clip.stop();
+            clip.flush();  // Vacía el buffer del clip
+            clip.close();  // Cierra el clip para asegurarse de que no siga en memoria
+}
+
             timer.stop();
-            this.objPartida.dispose();
+            this.objPartida.setVisible(false);
         }
     }
 
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.objPartida.botonBack) {
@@ -739,6 +771,7 @@ public class ControladorPartida implements ActionListener {
                 this.objPartida.carta7Bot,
                 this.objPartida.carta8Bot,
                 this.objPartida.carta9Bot);
+        verificarGanador();
 
         numerosGenerados.add(indexAleatorio);
         ImageIcon iconoSeleccionado = listaImagenes.get(indexAleatorio);
@@ -776,7 +809,7 @@ public class ControladorPartida implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cambiarCartas(); // Cambiar las cartas
-                verificarGanador();
+//                verificarGanador();
             }
         });
 
@@ -788,17 +821,17 @@ public class ControladorPartida implements ActionListener {
         try {
             // Cargar el archivo de sonido
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResource("/categorias/animales/sonidos/" + numeroCarta + ".wav"));
-            Clip clip = AudioSystem.getClip();
+            clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.start(); // Reproducir el sonido
-
             if (tipoDificultad == 2) {
                 // Crear un temporizador para volver a reproducir el sonido después de 1.5 segundos
-                Timer timer2 = new Timer(2500, new ActionListener() {
+                timer2 = new Timer(2500, new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         clip.setFramePosition(0); // Reiniciar el audio desde el inicio
                         clip.start(); // Reproducir el sonido nuevamente
+                        verificarGanador();
                     }
                 });
                 timer2.setRepeats(false); // Solo ejecuta una vez
@@ -808,9 +841,8 @@ public class ControladorPartida implements ActionListener {
             e.printStackTrace(); // Manejo de excepciones
         }
     }
-    
-    
-    public void establecerIconos(){
+
+    public void establecerIconos() {
         ImageIcon iconoImagenRestart = new ImageIcon(getClass().getResource("/iconos/btn-restart-animals.png"));
         int widthRestart = this.objPartida.botonRestart.getWidth();
         int heightRestart = this.objPartida.botonRestart.getHeight();
@@ -897,6 +929,7 @@ public class ControladorPartida implements ActionListener {
                     subirPuntosJugador();
                     idCartasMarcadas.add(idCartaLanzada);
                     marcarCarta(carta);
+                    verificarGanador();
 //                if (contadorAciertosJugador > 8) {
 //                    JOptionPane.showMessageDialog(this.objPartida, "You win!");
 //                    timer.stop();
@@ -917,6 +950,7 @@ public class ControladorPartida implements ActionListener {
                 subirPuntosJugador();
                 idCartasMarcadas.add(Integer.parseInt(carta.getName()));
                 marcarCarta(carta);
+                 verificarGanador();
             }
         }
         return;
@@ -987,9 +1021,9 @@ public class ControladorPartida implements ActionListener {
                 return;
             }
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioSrc);
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioStream);
-            clip.start(); // Reproduce el sonido
+            Clip clipBoton = AudioSystem.getClip();
+            clipBoton.open(audioStream);
+            clipBoton.start(); // Reproduce el sonido
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }

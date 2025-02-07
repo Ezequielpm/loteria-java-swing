@@ -62,6 +62,7 @@ public class ControladorPartidaJobs implements ActionListener {
     int tipoDificultad = 0;
     int idCategoria = 2;
     int puntosQueGana = 0;
+    Clip clip;
     public ControladorPartidaJobs() {
     }
 
@@ -169,18 +170,18 @@ public class ControladorPartidaJobs implements ActionListener {
         }
 
         if (Configuracion.getDificultad().equals("easy")) {
-            retrasoDificultad = 10000;
+            retrasoDificultad = 2000;//10000
             tipoDificultad = 1;
             puntosQueGana = 15;
             iniciarTemporizador(retrasoDificultad);
 
         } else if (Configuracion.getDificultad().equals("medium")) {
-            retrasoDificultad = 7000;
+            retrasoDificultad = 2000; //7000
             puntosQueGana = 30;
             tipoDificultad = 2;
             iniciarTemporizador(retrasoDificultad);
         } else if (Configuracion.getDificultad().equals("hard")) {
-            retrasoDificultad = 4000;
+            retrasoDificultad = 2000;
             puntosQueGana = 50;
             tipoDificultad = 3;
             iniciarTemporizador(retrasoDificultad);
@@ -742,6 +743,9 @@ public class ControladorPartidaJobs implements ActionListener {
             contadorAciertosBot = 0;
             contadorAciertosJugador = 0;
             numerosGenerados.clear();
+            
+            idCartasLanzadas.clear();
+            idCartasMarcadas.clear();
 
             ImageIcon iconoImagen = new ImageIcon(getClass().getResource("/especiales/load.png"));
             JLabel label = (JLabel) this.objPartidaJobs.cartaCambiante; // Asegúrate de que sea un JLabel
@@ -786,6 +790,7 @@ public class ControladorPartidaJobs implements ActionListener {
                     subirPuntosJugador();
                     idCartasMarcadas.add(idCartaLanzada);
                     marcarCarta(carta);
+                    verificarGanador();
 //                if (contadorAciertosJugador > 8) {
 //                    JOptionPane.showMessageDialog(this.objPartida, "You win!");
 //                    timer.stop();
@@ -807,6 +812,7 @@ public class ControladorPartidaJobs implements ActionListener {
                 subirPuntosJugador();
                 idCartasMarcadas.add(Integer.parseInt(carta.getName()));
                 marcarCarta(carta);
+                verificarGanador();
             }
         }
 //        if(presionarSinLimite){
@@ -867,6 +873,7 @@ public class ControladorPartidaJobs implements ActionListener {
                 this.objPartidaJobs.carta7Bot,
                 this.objPartidaJobs.carta8Bot,
                 this.objPartidaJobs.carta9Bot);
+        verificarGanador();
 
         numerosGenerados.add(indexAleatorio);
         ImageIcon iconoSeleccionado = listaImagenes.get(indexAleatorio);
@@ -926,18 +933,39 @@ public class ControladorPartidaJobs implements ActionListener {
     public void verificarGanador() {
         if (idCartasMarcadas.size() > 8) {
             Sesion.setPuntosGanados(contadorAciertosJugador);
-            registrarPartida(true);
+            
+            if(Sesion.getIdJugador()>0){
+                registrarPartida(true);
+            }
+            
+            clip.stop();
             JugadorGana objJugadorGana = new JugadorGana();
             objJugadorGana.puntos.setText(String.valueOf(Sesion.getPuntosGanados()));
             objJugadorGana.setVisible(true);
+            
+            objJugadorGana.objControladorJugadorGana.setObjControladorPartidaJobs(this);
+            objJugadorGana.objControladorJugadorGana.setTipoPartida(2);
             timer.stop();
+            this.objPartidaJobs.setVisible(false);
+            
+            
+            
         } else if (contadorAciertosBot > 8) {
             Sesion.setPuntosGanados(contadorAciertosJugador);
-            registrarPartida(false);
+
+            if(Sesion.getIdJugador()>0){
+                registrarPartida(false);
+            }
+
             JugadorPierde objJugadorPierde = new JugadorPierde();
             objJugadorPierde.puntos.setText(String.valueOf(Sesion.getPuntosGanados()));
             objJugadorPierde.setVisible(true);
+            
+            objJugadorPierde.objControladorJugadorPierde.setObjControladorPartidaJobs(this);
+            objJugadorPierde.objControladorJugadorPierde.setTipoPartida(2);
+            
             timer.stop();
+            this.objPartidaJobs.setVisible(false);
 
         }
     }
@@ -994,7 +1022,7 @@ public class ControladorPartidaJobs implements ActionListener {
         try {
         // Cargar el archivo de sonido
         AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResource("/categorias/profesiones/sonidos/" + numeroCarta + ".wav"));
-        Clip clip = AudioSystem.getClip();
+        clip = AudioSystem.getClip();
         clip.open(audioInputStream);
         clip.start(); // Reproducir el sonido
 

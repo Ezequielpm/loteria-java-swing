@@ -20,9 +20,15 @@ import vista.Menu;
  *
  * @author ezequielpena
  */
-public class ControladorJugadorGana implements ActionListener{
+public class ControladorJugadorGana implements ActionListener {
+
     JugadorGana objJugadorGana;
-    ControladorPartida objControladorPartida;
+    ControladorPartida objControladorPartida; // controlador de la partida de animales
+    ControladorPartidaJobs objControladorPartidaJobs; // controlador de la partida de jobs
+    ControladorPartidaObjects objControladorPartidaObjects; // controlador de la partida de objects
+
+    int tipoPartida = 0; // 1 -> animales, 2 -> jobs, 3 -> objetos
+
     public ControladorJugadorGana(JugadorGana objJugadorGana) {
         this.objJugadorGana = objJugadorGana;
         this.objJugadorGana.botonReiniciar.addActionListener(this);
@@ -38,17 +44,35 @@ public class ControladorJugadorGana implements ActionListener{
         this.objControladorPartida = objControladorPartida;
     }
 
-    
-    
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==this.objJugadorGana.botonReiniciar){
-            this.objControladorPartida.objPartida.setVisible(true);
-            this.objJugadorGana.dispose();
-            reproducirSonido();
+        if (e.getSource() == this.objJugadorGana.botonReiniciar) {
+            switch (tipoPartida) {
+                case 1: //animales
+                    this.objControladorPartida.objPartida.setVisible(true);
+                    this.objControladorPartida.reiniciarPartida();
+                    this.objJugadorGana.dispose();
+                    reproducirSonido();
+                    break;
+                case 2: //jobs
+                    this.objControladorPartidaJobs.objPartidaJobs.setVisible(true);
+                    this.objControladorPartidaJobs.reiniciarPartida();
+                    this.objJugadorGana.dispose();
+                    reproducirSonido();
+                    break;
+                case 3: //objetos
+                    this.objControladorPartidaObjects.objPartidaObjects.setVisible(true);
+                    this.objControladorPartidaObjects.reiniciarPartida();
+                    this.objJugadorGana.dispose();
+                    reproducirSonido();
+                    break;
+                default:
+                    break;
+            }
+
             return;
         }
-        if(e.getSource()==this.objJugadorGana.botonHome){
+        if (e.getSource() == this.objJugadorGana.botonHome) {
             Menu objMenu = new Menu();
             objMenu.setVisible(true);
             this.objJugadorGana.dispose();
@@ -56,8 +80,7 @@ public class ControladorJugadorGana implements ActionListener{
             return;
         }
     }
-    
-    
+
     public void reproducirSonido() {
         String rutaArchivo = "/sonidos/clics/clicBoton.wav";
         try {
@@ -75,5 +98,37 @@ public class ControladorJugadorGana implements ActionListener{
             e.printStackTrace();
         }
     }
-    
+
+    public JugadorGana getObjJugadorGana() {
+        return objJugadorGana;
+    }
+
+    public void setObjJugadorGana(JugadorGana objJugadorGana) {
+        this.objJugadorGana = objJugadorGana;
+    }
+
+    public ControladorPartidaJobs getObjControladorPartidaJobs() {
+        return objControladorPartidaJobs;
+    }
+
+    public void setObjControladorPartidaJobs(ControladorPartidaJobs objControladorPartidaJobs) {
+        this.objControladorPartidaJobs = objControladorPartidaJobs;
+    }
+
+    public ControladorPartidaObjects getObjControladorPartidaObjects() {
+        return objControladorPartidaObjects;
+    }
+
+    public void setObjControladorPartidaObjects(ControladorPartidaObjects objControladorPartidaObjects) {
+        this.objControladorPartidaObjects = objControladorPartidaObjects;
+    }
+
+    public int getTipoPartida() {
+        return tipoPartida;
+    }
+
+    public void setTipoPartida(int tipoPartida) {
+        this.tipoPartida = tipoPartida;
+    }
+
 }

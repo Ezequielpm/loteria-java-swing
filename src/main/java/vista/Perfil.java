@@ -40,6 +40,12 @@ public class Perfil extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         botonBack = new javax.swing.JButton();
         nombreUsuario = new javax.swing.JLabel();
+        partidasGanadas = new javax.swing.JLabel();
+        partidasPerdidas = new javax.swing.JLabel();
+        partidasTotales = new javax.swing.JLabel();
+        puntosEasy = new javax.swing.JLabel();
+        puntosMedium = new javax.swing.JLabel();
+        puntosHard = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,16 +57,51 @@ public class Perfil extends javax.swing.JFrame {
         nombreUsuario.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
         nombreUsuario.setText("jLabel2");
 
+        partidasGanadas.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
+        partidasGanadas.setText("jLabel2");
+
+        partidasPerdidas.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
+        partidasPerdidas.setText("jLabel2");
+
+        partidasTotales.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
+        partidasTotales.setText("jLabel2");
+
+        puntosEasy.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
+        puntosEasy.setText("jLabel2");
+
+        puntosMedium.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
+        puntosMedium.setText("jLabel2");
+
+        puntosHard.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
+        puntosHard.setText("jLabel2");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(botonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(91, 91, 91)
-                .addComponent(nombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(542, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(botonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(91, 91, 91)
+                        .addComponent(nombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(93, 93, 93)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(puntosEasy, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(89, 89, 89)
+                                .addComponent(puntosMedium, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(98, 98, 98)
+                                .addComponent(puntosHard, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(partidasGanadas, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(89, 89, 89)
+                                .addComponent(partidasPerdidas, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(98, 98, 98)
+                                .addComponent(partidasTotales, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -72,7 +113,17 @@ public class Perfil extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(nombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(433, Short.MAX_VALUE))
+                .addGap(140, 140, 140)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(partidasGanadas, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(partidasPerdidas, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(partidasTotales, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(puntosEasy, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(puntosMedium, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(puntosHard, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -141,5 +192,11 @@ public class Perfil extends javax.swing.JFrame {
     public javax.swing.JButton botonBack;
     private javax.swing.JPanel jPanel1;
     public javax.swing.JLabel nombreUsuario;
+    public javax.swing.JLabel partidasGanadas;
+    public javax.swing.JLabel partidasPerdidas;
+    public javax.swing.JLabel partidasTotales;
+    public javax.swing.JLabel puntosEasy;
+    public javax.swing.JLabel puntosHard;
+    public javax.swing.JLabel puntosMedium;
     // End of variables declaration//GEN-END:variables
 }

@@ -42,18 +42,18 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="-2" pref="198" max="-2" attributes="0"/>
-                  <Component id="botonReiniciar" min="-2" pref="69" max="-2" attributes="0"/>
-                  <EmptySpace pref="18" max="32767" attributes="0"/>
-                  <Component id="botonHome" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="botonCambiarTablero" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="201" max="-2" attributes="0"/>
+                  <EmptySpace pref="200" max="32767" attributes="0"/>
+                  <Component id="botonReiniciar" pref="71" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="botonHome" pref="71" max="32767" attributes="0"/>
+                  <EmptySpace type="unrelated" max="32767" attributes="0"/>
+                  <Component id="botonCambiarTablero" pref="71" max="32767" attributes="0"/>
+                  <EmptySpace pref="203" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="239" max="-2" attributes="0"/>
+                  <EmptySpace pref="282" max="32767" attributes="0"/>
                   <Component id="puntos" min="-2" pref="72" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="282" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -62,30 +62,18 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace pref="182" max="32767" attributes="0"/>
                   <Component id="puntos" min="-2" pref="48" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                  <EmptySpace pref="42" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="botonCambiarTablero" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                      <Component id="botonReiniciar" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
-                      <Component id="botonHome" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
+                      <Component id="botonCambiarTablero" alignment="3" pref="63" max="32767" attributes="0"/>
+                      <Component id="botonReiniciar" alignment="3" max="32767" attributes="0"/>
+                      <Component id="botonHome" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+                  <EmptySpace pref="53" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="puntos">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Helvetica Neue" size="24" style="0"/>
-            </Property>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="333"/>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-          </AuxValues>
-        </Component>
         <Component class="javax.swing.JButton" name="botonReiniciar">
           <Properties>
             <Property name="contentAreaFilled" type="boolean" value="false"/>
@@ -118,6 +106,18 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonCambiarTableroActionPerformed"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JLabel" name="puntos">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Helvetica Neue" size="24" style="0"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="333"/>
+          </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
           </AuxValues>

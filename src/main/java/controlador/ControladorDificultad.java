@@ -65,7 +65,6 @@ public class ControladorDificultad implements ActionListener {
             Configuracion.setPresionarSinLimite(true);
             EscogerTablero objEscogerTablero = new EscogerTablero();
             objEscogerTablero.setVisible(true);
-            reproducirSonido();
 
             this.objDificultad.dispose();
             return;
@@ -77,7 +76,6 @@ public class ControladorDificultad implements ActionListener {
             Configuracion.setPresionarSinLimite(false);
             EscogerTablero objEscogerTablero = new EscogerTablero();
             objEscogerTablero.setVisible(true);
-            reproducirSonido();
 
             this.objDificultad.dispose();
 

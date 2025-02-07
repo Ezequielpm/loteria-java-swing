@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import modelo.EstadisticasPerfil;
+import modelo.ListaTop;
 import vista.Menu;
 import vista.Perfil;
 
@@ -56,5 +57,34 @@ public class ControladorPerfil implements ActionListener {
         
         //escribir el nombre del usuario
         this.objPerfil.nombreUsuario.setText(objEstadisticasPerfil.getNombreJugador());
+        
+        //partidas totales
+        this.objPerfil.partidasGanadas.setText(String.valueOf(objEstadisticasPerfil.getPartidasGanadas()));
+        this.objPerfil.partidasPerdidas.setText(String.valueOf(objEstadisticasPerfil.getPartidasPerdidas()));
+        this.objPerfil.partidasTotales.setText(String.valueOf(objEstadisticasPerfil.getPartidasTotales()));
+        
+        //puntos totales
+        this.objPerfil.puntosEasy.setText(String.valueOf(objEstadisticasPerfil.getPuntosEasy()));
+        this.objPerfil.puntosMedium.setText(String.valueOf(objEstadisticasPerfil.getPuntosMedium()));
+        this.objPerfil.puntosHard.setText(String.valueOf(objEstadisticasPerfil.getPuntosHard()));
+        
+        System.out.println("PUNTOS EN EASY: "+objEstadisticasPerfil.getPuntosEasy());
+        System.out.println("PUNTOS EN MEDIUM: "+objEstadisticasPerfil.getPuntosMedium());
+        System.out.println("PUNTOS EN HARD: "+objEstadisticasPerfil.getPuntosHard());
+        System.out.println("JUEGOS GANADOS      : "+objEstadisticasPerfil.getPartidasGanadas());
+        System.out.println("JUEGOS PERDIDOS    : "+objEstadisticasPerfil.getPartidasPerdidas());
+        System.out.println("JUEGOS TOTALES    : "+objEstadisticasPerfil.getPartidasTotales());
+        
+        
+        ListaTop objListaTop = objOperacionesDBPartida.obtenerRanking();
+        
+        System.out.println("---EASY");
+        System.out.println("---1. NOMBRE: "+objListaTop.getTopEasy().get(0).getNombreJugador()+", PUNTOS: "+objListaTop.getTopHard().get(0).getPuntosJugador());
+        System.out.println("---2. NOMBRE: "+objListaTop.getTopEasy().get(0).getNombreJugador());
+        System.out.println("---3. NOMBRE: "+objListaTop.getTopEasy().get(0).getNombreJugador());
+        System.out.println("---MEDIUM");
+        System.out.println("---HARD");
+        
+        //total de partidas
     }
 }

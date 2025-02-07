@@ -61,6 +61,7 @@ public class ControladorPartidaObjects implements ActionListener{
     int tipoDificultad = 0;
     int idCategoria = 3;
     int puntosQueGana = 0;
+    Clip clip;
     public ControladorPartidaObjects() {
     }
 
@@ -729,6 +730,9 @@ public class ControladorPartidaObjects implements ActionListener{
             contadorAciertosBot = 0;
             contadorAciertosJugador = 0;
             numerosGenerados.clear();
+            
+            idCartasLanzadas.clear();
+            idCartasMarcadas.clear();
 
             ImageIcon iconoImagen = new ImageIcon(getClass().getResource("/especiales/load.png"));
             JLabel label = (JLabel) this.objPartidaObjects.cartaCambiante; // Asegúrate de que sea un JLabel
@@ -773,6 +777,7 @@ public class ControladorPartidaObjects implements ActionListener{
                     subirPuntosJugador();
                     idCartasMarcadas.add(idCartaLanzada);
                     marcarCarta(carta);
+                    verificarGanador();
 //                if (contadorAciertosJugador > 8) {
 //                    JOptionPane.showMessageDialog(this.objPartida, "You win!");
 //                    timer.stop();
@@ -794,6 +799,7 @@ public class ControladorPartidaObjects implements ActionListener{
                 subirPuntosJugador();
                 idCartasMarcadas.add(Integer.parseInt(carta.getName()));
                 marcarCarta(carta);
+                verificarGanador();
             }
         }
 //        if(presionarSinLimite){
@@ -913,18 +919,37 @@ public class ControladorPartidaObjects implements ActionListener{
     public void verificarGanador() {
         if (idCartasMarcadas.size() > 8) {
             Sesion.setPuntosGanados(contadorAciertosJugador);
-            registrarPartida(true);
+            if(Sesion.getIdJugador()>0){
+                registrarPartida(true);
+            }
+            
+            
+            clip.stop();
+            
             JugadorGana objJugadorGana = new JugadorGana();
             objJugadorGana.puntos.setText(String.valueOf(Sesion.getPuntosGanados()));
             objJugadorGana.setVisible(true);
+            
+            objJugadorGana.objControladorJugadorGana.setObjControladorPartidaObjects(this);
+            objJugadorGana.objControladorJugadorGana.setTipoPartida(3);
             timer.stop();
+            this.objPartidaObjects.setVisible(false);
         } else if (contadorAciertosBot > 8) {
             Sesion.setPuntosGanados(contadorAciertosJugador);
-            registrarPartida(false);
+
+            if(Sesion.getIdJugador()>0){
+                registrarPartida(false);
+            }
+
             JugadorPierde objJugadorPierde = new JugadorPierde();
             objJugadorPierde.puntos.setText(String.valueOf(Sesion.getPuntosGanados()));
             objJugadorPierde.setVisible(true);
+            
+            objJugadorPierde.objControladorJugadorPierde.setObjControladorPartidaObjects(this);
+            objJugadorPierde.objControladorJugadorPierde.setTipoPartida(3);
+            
             timer.stop();
+            this.objPartidaObjects.setVisible(false);
 
         }
     }
@@ -965,6 +990,7 @@ public class ControladorPartidaObjects implements ActionListener{
                 this.objPartidaObjects.carta7Bot,
                 this.objPartidaObjects.carta8Bot,
                 this.objPartidaObjects.carta9Bot);
+        verificarGanador();
 
         numerosGenerados.add(indexAleatorio);
         ImageIcon iconoSeleccionado = listaImagenes.get(indexAleatorio);
@@ -1038,7 +1064,7 @@ public class ControladorPartidaObjects implements ActionListener{
         try {
         // Cargar el archivo de sonido
         AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(getClass().getResource("/categorias/objetos/sonidos/" + numeroCarta + ".wav"));
-        Clip clip = AudioSystem.getClip();
+        clip = AudioSystem.getClip();
         clip.open(audioInputStream);
         clip.start(); // Reproducir el sonido
 
